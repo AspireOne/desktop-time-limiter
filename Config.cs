@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace Digital_wellbeing
 {
     public static class Config
     {
-        public enum Property { MaxTimeMins, Password, LastOpenUnixSecs, PassedTodayMins }
+        public enum Property { MaxTimeMins, ResetHour, Password, LastOpenUnixSecs, PassedTodaySecs }
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
@@ -17,11 +18,13 @@ namespace Digital_wellbeing
             { Property.MaxTimeMins, "max-time-minutes" },
             { Property.Password, "password" },
             { Property.LastOpenUnixSecs, "last-open-unix-seconds" },
-            { Property.PassedTodayMins, "passed-minutes-today" },
+            { Property.PassedTodaySecs, "passed-seconds-today" },
+            { Property.ResetHour, "reset-hour" },
         };
 
         public static string? GetValueOrNull(Property property)
         {
+            Debug.WriteLine("Getting config value.");
             if (!File.Exists(Location))
                 File.Create(Location).Close();
             
@@ -32,9 +35,14 @@ namespace Digital_wellbeing
                 .Select(line => line.Replace(propName + PropertyValueSeparator, ""))
                 .FirstOrDefault();
         }
-
-        public static void SetValue(Property property, string value)
+        
+        public static int? GetIntOrNull(Property property) => int.TryParse(GetValueOrNull(property), out int value) ? value : null;
+        public static long? GetLongOrNull(Property property) => long.TryParse(GetValueOrNull(property), out long value) ? value : null;
+        public static float? GetFloatOrNull(Property property) => float.TryParse(GetValueOrNull(property), out float value) ? value : null;
+        
+        public static void SetValue(Property property, object value)
         {
+            Debug.WriteLine("Setting config value.");
             if (!File.Exists(Location))
                 File.Create(Location).Close();
 

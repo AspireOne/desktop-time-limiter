@@ -12,3 +12,4 @@ C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Debug\Digital-Wellbeing.Prope
 C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Debug\Digital-Wellbeing.Resource1.resources
 C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Debug\Digital-Wellbeing.exe
 C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Debug\Digital-Wellbeing.pdb
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Debug\Digital_wellbeing.BlackBackground.resources

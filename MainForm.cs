@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,9 +9,12 @@ namespace Digital_wellbeing
 {
     public partial class MainForm : Form
     {
-        private static string? Password = Config.GetValueOrNull(Config.Property.Password) ?? "17861177";
-        private const byte HourToResetAt = 3; // 0 - 23
+        private const byte DefaultMaxTimeMins = 240;
+        private readonly ResetChecker ResetChecker;
+        private readonly PcLocker PcLocker;
         private int LastShown = int.MaxValue;
+        private string? Password;
+
 
         private static readonly List<(int timePoint, Action action)> TimeEvents = new()
         {
@@ -25,30 +29,106 @@ namespace Digital_wellbeing
                 MessageBox.Show("Zbývá 10 minut", "Oznámení o zbývajícím čase", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             })
         };
+        
         public MainForm()
         {
             InitializeComponent();
+            SetButtonListeners();
+
+            Password = Config.GetValueOrNull(Config.Property.Password) ?? "17861177";
+            ResetChecker = new(Config.GetIntOrNull(Config.Property.ResetHour) ?? 3);
+            PcLocker = new(this);
+
+            ResetChecker.ShouldReset += (_, _) => Reset();
+            PassedTimeWatcher.OnRunningChanged += (_, running) =>
+                Invoke(new EventHandler((_, _) => StatusLbl.Text = running ? "Zapnuto" : "Pozastaveno"));
             PassedTimeWatcher.OnUpdate += (_, time) =>
+                Invoke(new EventHandler((_, _) => HandleTick(time.passedMillis, time.remainingMillis)));
+            PassedTimeWatcher.OnMaxTimeReached += (_, _) =>
+                Invoke(new EventHandler((_, _) => HandleMaxTimeReached()));
+
+            int passedSecsToday = Config.GetIntOrNull(Config.Property.PassedTodaySecs) ?? 0;
+            PassedTimeWatcher.PassedMillis = (int)TimeSpan.FromSeconds(passedSecsToday).TotalMilliseconds;
+            PassedTimeWatcher.MaxTime = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.MaxTimeMins) ?? DefaultMaxTimeMins);
+
+            Config.SetValue(Config.Property.LastOpenUnixSecs, DateTimeOffset.Now.ToUnixTimeSeconds());
+            
+            if (ResetChecker.ShouldResetPassedTime())
+                Reset();
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            ResetChecker.Start();
+            PassedTimeWatcher.Running = true;
+            base.OnHandleCreated(e);
+        }
+
+        // To hide the window from task manager. It is still visible in processes.
+        protected override CreateParams CreateParams {
+            get {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x80;  // Turn on WS_EX_TOOLWINDOW
+                return cp;
+            }
+        }
+
+        private void Reset()
+        {
+            Debug.WriteLine("Resetting passed time.");
+            int passedMillisBefore = PassedTimeWatcher.PassedMillis;
+            
+            Config.SetValue(Config.Property.PassedTodaySecs, "0");
+            PassedTimeWatcher.PassedMillis = 0;
+            
+            if (passedMillisBefore >= PassedTimeWatcher.MaxTime.TotalMilliseconds)
             {
-                TimeSpan passedTime = TimeSpan.FromMilliseconds(time.passedMillis);
-                TimeSpan remainingTime = TimeSpan.FromMilliseconds(time.remainingMillis);
-                string formatted = "Čas: " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
-                Invoke(new EventHandler((_, _) => TimeLbl.Text = formatted));
-              
-                foreach ((int timePoint, Action action) in TimeEvents)
-                {
-                    if (LastShown <= timePoint || (int)remainingTime.TotalMinutes != timePoint)
-                        continue;
+                PcLocker.Unlock();
+                PassedTimeWatcher.Running = true;
+            }
+        }
 
-                    LastShown = timePoint;
-                    action.Invoke();
-                }
-            };
+        private void HandleMaxTimeReached()
+        {
+            PlayNotificationSound();
+            Opacity = 1;
+            PcLocker.Lock();
+        }
 
+        private void HandleTick(int passedMillis, int remainingMillis)
+        {
+            TimeSpan passedTime = TimeSpan.FromMilliseconds(passedMillis);
+            TimeSpan remainingTime = TimeSpan.FromMilliseconds(remainingMillis);
+            string formatted = "Čas: " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
+            TimeLbl.Text = formatted;
+
+            foreach ((int timePoint, Action action) in TimeEvents)
+            {
+                if (LastShown <= timePoint || (int)remainingTime.TotalMinutes != timePoint)
+                    continue;
+
+                LastShown = timePoint;
+                action.Invoke();
+            }   
+        }
+
+        private void SetButtonListeners()
+        {
             CloseButt.Click += (_, _) =>
             {
                 if (RequestPassword())
                     Application.Exit();
+            };
+
+            ChangeResetHourButt.Click += (_, _) =>
+            {
+                TimeSpan currHour = TimeSpan.FromHours(ResetChecker.ResetHour);
+                TimeSpan? hour = ObtainTimeOrNull(currHour);
+                if (!hour.HasValue || hour == currHour || !RequestPassword())
+                    return;
+                
+                ResetChecker.ResetHour = (byte)hour.Value.Hours;
+                Config.SetValue(Config.Property.ResetHour, hour.Value.Hours);
             };
 
             ToggleButt.Click += (_, _) =>
@@ -56,12 +136,7 @@ namespace Digital_wellbeing
                 if (!RequestPassword())
                     return;
 
-                if (PassedTimeWatcher.Running)
-                    PassedTimeWatcher.Pause();
-                else
-                    PassedTimeWatcher.Run();
-
-                StatusLbl.Text = PassedTimeWatcher.Running ? "Zapnuto" : "Pozastaveno";
+                PassedTimeWatcher.Running = !PassedTimeWatcher.Running;
             };
 
             ChangePassedButt.Click += (_, _) =>
@@ -80,7 +155,7 @@ namespace Digital_wellbeing
                 if (!time.HasValue || !RequestPassword())
                     return;
                 
-                Config.SetValue(Config.Property.MaxTimeMins, (int)time.Value.TotalMinutes + "");
+                Config.SetValue(Config.Property.MaxTimeMins, (int)time.Value.TotalMinutes);
                 PassedTimeWatcher.MaxTime = time.Value;
             };
 
@@ -94,41 +169,9 @@ namespace Digital_wellbeing
                 Config.SetValue(Config.Property.Password, newPassword);
                 Password = newPassword;
             };
-            
-            bool maxTimeParsed = int.TryParse(Config.GetValueOrNull(Config.Property.MaxTimeMins), out int maxTime);
-            PassedTimeWatcher.MaxTime = maxTimeParsed ? TimeSpan.FromMinutes(maxTime) : TimeSpan.FromHours(4);
-
-            string? passedMinsTodayStr = Config.GetValueOrNull(Config.Property.PassedTodayMins);
-            int passedMinsToday = int.Parse(passedMinsTodayStr ?? "0");
-
-            if (ShouldReset())
-            {
-                passedMinsToday = 0;
-                Config.SetValue(Config.Property.PassedTodayMins, "0");
-            }
-
-            PassedTimeWatcher.PassedMillis = (int)TimeSpan.FromMinutes(passedMinsToday).TotalMilliseconds;
-            Config.SetValue(Config.Property.LastOpenUnixSecs, DateTimeOffset.Now.ToUnixTimeSeconds() + "");
-            PassedTimeWatcher.Run();
         }
 
-        private static bool ShouldReset()
-        {
-            string? lastOpenedUnixSecsStr = Config.GetValueOrNull(Config.Property.LastOpenUnixSecs);
-            int lastOpenedUnixSecs = int.Parse(lastOpenedUnixSecsStr ?? "0");
-
-            DateTimeOffset lastOpenDatetime = DateTimeOffset.FromUnixTimeSeconds(lastOpenedUnixSecs);
-            DateTimeOffset currentDatetime = DateTimeOffset.Now;
-            bool isEligibleForReset =
-                lastOpenDatetime.Day != currentDatetime.Day
-                || lastOpenDatetime.Month != currentDatetime.Month
-                || lastOpenDatetime.Year != currentDatetime.Year
-                || lastOpenDatetime.Hour < HourToResetAt;
-
-            return isEligibleForReset && currentDatetime.Hour >= HourToResetAt;
-        }
-
-        private static bool RequestPassword() => ObtainTextOrNull("Heslo", true) == Password;
+        private bool RequestPassword() => ObtainTextOrNull("Heslo", true) == Password;
         private static string? ObtainTextOrNull(string title, bool password)
         {
             var dialog = new TextDialog();
@@ -180,11 +223,13 @@ namespace Digital_wellbeing
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (e.CloseReason is CloseReason.WindowsShutDown or CloseReason.ApplicationExitCall/* || e.CloseReason == CloseReason.TaskManagerClosing*/)
+            Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
+            if (e.CloseReason is CloseReason.WindowsShutDown or CloseReason.ApplicationExitCall or CloseReason.TaskManagerClosing)
                 return;
             
             e.Cancel = true;
-            Visible = false;
+            if (!PcLocker.Locked && e.CloseReason == CloseReason.UserClosing)
+                Opacity = 0;
         }
     }
 }

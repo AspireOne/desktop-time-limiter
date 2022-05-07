@@ -64,8 +64,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackBackground.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlackBackground.Designer.cs">
+      <DependentUpon>BlackBackground.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -73,6 +80,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PcLocker.cs" />
     <Compile Include="ResetChecker.cs" />
     <Compile Include="StartupLauncher.cs" />
     <Compile Include="TextDialog.cs">
@@ -95,6 +103,10 @@
     <Compile Include="TimeDialog.Designer.cs">
       <DependentUpon>TimeDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SessionChangeHandler.cs" />
+    <EmbeddedResource Include="BlackBackground.resx">
+      <DependentUpon>BlackBackground.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

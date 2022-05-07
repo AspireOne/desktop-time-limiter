@@ -9,6 +9,7 @@ namespace Digital_wellbeing
     {
         public static event EventHandler<(int passedMillis, int remainingMillis)>? OnUpdate;
         public static event EventHandler? OnMaxTimeReached;
+        public static event EventHandler<bool>? OnRunningChanged;
         
         public static TimeSpan MaxTime;
         private static readonly int UpdateFrequencyMillis = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
@@ -17,26 +18,25 @@ namespace Digital_wellbeing
 
         private static bool Idle;
         public static int PassedMillis;
-        public static bool Running { get; private set; }
+        private static bool _running;
+        public static bool Running
+        {
+            get => _running;
+            set
+            {
+                if (value == Running)
+                    return;
+                
+                OnRunningChanged?.Invoke(null, value);
+                _running = value;
+                if (value)
+                    Timer.Change(0, UpdateFrequencyMillis);
+                else
+                    Timer.Change(-1, -1);
+            }
+        }
+
         private struct Lastinputinfo { public uint cbSize, dwTime; }
-
-        public static void Run()
-        {
-            if (Running)
-                return;
-            
-            Running = true;
-            Timer.Change(0, UpdateFrequencyMillis);
-        }
-
-        public static void Pause()
-        {
-            if (!Running)
-                return;
-            
-            Running = false;
-            Timer.Change(-1, -1);
-        }
 
         private static void OnTimerTick(object state)
         {
@@ -44,24 +44,26 @@ namespace Digital_wellbeing
 
             if (idleTimeMillis >= IdleThresholdMillis)
             {
+                Debug.WriteLine("Is idle.");
                 if (Idle)
                     return;
                 
+                Debug.WriteLine("Has just became idle.");
                 Idle = true;
                 PassedMillis -= (int)idleTimeMillis;
                 OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
                 return;
             }
+            
             Idle = false;
+            PassedMillis += UpdateFrequencyMillis;
+            OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
 
             if (PassedMillis >= MaxTime.TotalMilliseconds)
             {
-                Pause();
+                Running = false;
                 OnMaxTimeReached?.Invoke(null, EventArgs.Empty);
             }
-            
-            PassedMillis += UpdateFrequencyMillis;
-            OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
         }
 
         // https://www.pinvoke.net/default.aspx/user32.getlastinputinfo

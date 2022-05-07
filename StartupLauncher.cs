@@ -8,7 +8,7 @@ namespace Digital_wellbeing
     public static class StartupLauncher
     {
         //Startup registry key and value
-        private const string StartupKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+        private const string StartupKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
         private const string StartupValue = "DigitalWellbeing";
         private static readonly string ExecutablePath =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "digital-wellbeing.exe");

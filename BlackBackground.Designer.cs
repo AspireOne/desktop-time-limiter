@@ -2,7 +2,7 @@
 
 namespace Digital_wellbeing
 {
-    partial class TextDialog
+    partial class BlackBackground
     {
         /// <summary>
         /// Required designer variable.
@@ -31,48 +31,29 @@ namespace Digital_wellbeing
         /// </summary>
         private void InitializeComponent()
         {
-            this.OkButt = new System.Windows.Forms.Button();
-            this.TextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // OkButt
-            // 
-            this.OkButt.Location = new System.Drawing.Point(88, 141);
-            this.OkButt.Name = "OkButt";
-            this.OkButt.Size = new System.Drawing.Size(101, 34);
-            this.OkButt.TabIndex = 0;
-            this.OkButt.Text = "Ok";
-            this.OkButt.UseVisualStyleBackColor = true;
-            // 
-            // TextBox
-            // 
-            this.TextBox.Location = new System.Drawing.Point(44, 69);
-            this.TextBox.Name = "TextBox";
-            this.TextBox.PasswordChar = '卐';
-            this.TextBox.Size = new System.Drawing.Size(190, 20);
-            this.TextBox.TabIndex = 1;
-            // 
-            // TextDialog
+            // BlackBackground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 186);
-            this.Controls.Add(this.TextBox);
-            this.Controls.Add(this.OkButt);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(984, 961);
+            this.ControlBox = false;
+            this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TextDialog";
+            this.Name = "BlackBackground";
+            this.Opacity = 0.5;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.TopMost = true;
+            this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
-            this.PerformLayout();
         }
-
-        private System.Windows.Forms.Button OkButt;
-        public System.Windows.Forms.TextBox TextBox;
 
         #endregion
     }

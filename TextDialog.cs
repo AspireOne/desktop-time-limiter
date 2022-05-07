@@ -22,6 +22,7 @@ namespace Digital_wellbeing
                 Close();
             };
             AcceptButton = OkButt;
+            ActiveControl = TextBox;
         }
     }
 }

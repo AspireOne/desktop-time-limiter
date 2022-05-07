@@ -54,7 +54,7 @@ namespace Digital_wellbeing
             // 
             this.HoursBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.HoursBox.Location = new System.Drawing.Point(33, 67);
-            this.HoursBox.Maximum = new decimal(new int[] { 24, 0, 0, 0 });
+            this.HoursBox.Maximum = new decimal(new int[] { 23, 0, 0, 0 });
             this.HoursBox.Name = "HoursBox";
             this.HoursBox.Size = new System.Drawing.Size(48, 26);
             this.HoursBox.TabIndex = 3;

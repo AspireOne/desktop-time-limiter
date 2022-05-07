@@ -10,14 +10,14 @@ namespace Digital_wellbeing
     {
         private static readonly NotifyIcon PinNotifyIcon = new()
         {
-            Text = "Klikni pro otevření",
+            Text = "Klikni pro otevření/zavření",
             Icon = Resources.program_icon,
             Visible = true
         };
         
         /// <summary>The main entry point for the application.</summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
@@ -27,11 +27,14 @@ namespace Digital_wellbeing
                 Environment.Exit(0);
 
             var mainForm = new MainForm();
-            mainForm.Visible = false;
+            mainForm.Opacity = 0;
             PinNotifyIcon.Click += (_, _) =>
             {
+                mainForm.Opacity = mainForm.Opacity == 0 ? 1 : 0;
+                if (mainForm.Opacity != 1)
+                    return;
+                
                 mainForm.WindowState = FormWindowState.Minimized;
-                mainForm.Visible = true;
                 mainForm.WindowState = FormWindowState.Normal;
             };
             

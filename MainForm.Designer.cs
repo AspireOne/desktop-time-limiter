@@ -37,6 +37,7 @@
             this.ToggleButt = new System.Windows.Forms.Button();
             this.StatusLbl = new System.Windows.Forms.Label();
             this.ChangePasswordButt = new System.Windows.Forms.Button();
+            this.ChangeResetHourButt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TimeLbl
@@ -52,10 +53,10 @@
             // CloseButt
             // 
             this.CloseButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CloseButt.Location = new System.Drawing.Point(34, 330);
+            this.CloseButt.Location = new System.Drawing.Point(232, 333);
             this.CloseButt.Name = "CloseButt";
             this.CloseButt.Size = new System.Drawing.Size(171, 58);
-            this.CloseButt.TabIndex = 1;
+            this.CloseButt.TabIndex = 6;
             this.CloseButt.Text = "Ukončit";
             this.CloseButt.UseVisualStyleBackColor = true;
             // 
@@ -75,27 +76,27 @@
             this.ChangePassedButt.Location = new System.Drawing.Point(34, 165);
             this.ChangePassedButt.Name = "ChangePassedButt";
             this.ChangePassedButt.Size = new System.Drawing.Size(171, 58);
-            this.ChangePassedButt.TabIndex = 3;
+            this.ChangePassedButt.TabIndex = 1;
             this.ChangePassedButt.Text = "Změnit strávený čas";
             this.ChangePassedButt.UseVisualStyleBackColor = true;
             // 
             // ToggleButt
             // 
             this.ToggleButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ToggleButt.Location = new System.Drawing.Point(34, 248);
+            this.ToggleButt.Location = new System.Drawing.Point(34, 333);
             this.ToggleButt.Name = "ToggleButt";
             this.ToggleButt.Size = new System.Drawing.Size(171, 58);
-            this.ToggleButt.TabIndex = 4;
+            this.ToggleButt.TabIndex = 5;
             this.ToggleButt.Text = "Pauznout/spustit";
             this.ToggleButt.UseVisualStyleBackColor = true;
             // 
             // StatusLbl
             // 
             this.StatusLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.StatusLbl.Location = new System.Drawing.Point(18, 78);
+            this.StatusLbl.Location = new System.Drawing.Point(16, 73);
             this.StatusLbl.Name = "StatusLbl";
-            this.StatusLbl.Size = new System.Drawing.Size(177, 23);
-            this.StatusLbl.TabIndex = 5;
+            this.StatusLbl.Size = new System.Drawing.Size(144, 23);
+            this.StatusLbl.TabIndex = 0;
             this.StatusLbl.Text = "Zapnuto";
             this.StatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -105,15 +106,26 @@
             this.ChangePasswordButt.Location = new System.Drawing.Point(232, 248);
             this.ChangePasswordButt.Name = "ChangePasswordButt";
             this.ChangePasswordButt.Size = new System.Drawing.Size(171, 58);
-            this.ChangePasswordButt.TabIndex = 6;
+            this.ChangePasswordButt.TabIndex = 4;
             this.ChangePasswordButt.Text = "Změnit heslo";
             this.ChangePasswordButt.UseVisualStyleBackColor = true;
+            // 
+            // ChangeResetHourButt
+            // 
+            this.ChangeResetHourButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ChangeResetHourButt.Location = new System.Drawing.Point(34, 248);
+            this.ChangeResetHourButt.Name = "ChangeResetHourButt";
+            this.ChangeResetHourButt.Size = new System.Drawing.Size(171, 58);
+            this.ChangeResetHourButt.TabIndex = 3;
+            this.ChangeResetHourButt.Text = "Změnit čas resetu";
+            this.ChangeResetHourButt.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 417);
+            this.Controls.Add(this.ChangeResetHourButt);
             this.Controls.Add(this.ChangePasswordButt);
             this.Controls.Add(this.StatusLbl);
             this.Controls.Add(this.ToggleButt);
@@ -127,10 +139,13 @@
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Digitální blahobyt";
             this.TopMost = true;
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button ChangeResetHourButt;
 
         private System.Windows.Forms.Button ChangePasswordButt;
 
