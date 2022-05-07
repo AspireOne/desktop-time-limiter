@@ -76,16 +76,15 @@ namespace Digital_wellbeing
         private void Reset()
         {
             Debug.WriteLine("Resetting passed time.");
-            int passedMillisBefore = PassedTimeWatcher.PassedMillis;
-            
-            Config.SetValue(Config.Property.PassedTodaySecs, "0");
             PassedTimeWatcher.PassedMillis = 0;
-            
-            if (passedMillisBefore >= PassedTimeWatcher.MaxTime.TotalMilliseconds)
-            {
-                PcLocker.Unlock();
-                PassedTimeWatcher.Running = true;
-            }
+            Resume();
+            Config.SetValue(Config.Property.PassedTodaySecs, "0");
+        }
+
+        private void Resume()
+        {
+            PcLocker.Unlock();
+            PassedTimeWatcher.Running = true;
         }
 
         private void HandleMaxTimeReached()
@@ -146,6 +145,8 @@ namespace Digital_wellbeing
                     return;
                 
                 PassedTimeWatcher.PassedMillis = (int)time.Value.TotalMilliseconds;
+                if (PassedTimeWatcher.PassedMillis < PassedTimeWatcher.MaxTime.TotalMilliseconds)
+                    Resume();
             };
 
             ChangeMaxButt.Click += (_, _) =>
@@ -157,6 +158,9 @@ namespace Digital_wellbeing
                 
                 Config.SetValue(Config.Property.MaxTimeMins, (int)time.Value.TotalMinutes);
                 PassedTimeWatcher.MaxTime = time.Value;
+                
+                if (PassedTimeWatcher.PassedMillis < PassedTimeWatcher.MaxTime.TotalMilliseconds)
+                    Resume();
             };
 
             ChangePasswordButt.Click += (_, _) =>
