@@ -40,7 +40,7 @@ namespace Digital_wellbeing
             {
                 CreateParams cp = base.CreateParams;
                 // Set the form click-through
-                cp.ExStyle |= 0x80000 /* WS_EX_LAYERED */ | 0x20 /* WS_EX_TRANSPARENT */;
+                cp.ExStyle |= 0x80000 /* WS_EX_LAYERED */ | 0x20 /* WS_EX_TRANSPARENT */ | 0x80 /*Turn on WS_EX_TOOLWINDOW*/;
                 return cp;
             }
         }
