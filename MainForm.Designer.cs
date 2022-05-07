@@ -38,6 +38,7 @@
             this.StatusLbl = new System.Windows.Forms.Label();
             this.ChangePasswordButt = new System.Windows.Forms.Button();
             this.ChangeResetHourButt = new System.Windows.Forms.Button();
+            this.ChangeIdleTimeButt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TimeLbl
@@ -53,7 +54,7 @@
             // CloseButt
             // 
             this.CloseButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.CloseButt.Location = new System.Drawing.Point(232, 333);
+            this.CloseButt.Location = new System.Drawing.Point(34, 421);
             this.CloseButt.Name = "CloseButt";
             this.CloseButt.Size = new System.Drawing.Size(171, 58);
             this.CloseButt.TabIndex = 6;
@@ -103,7 +104,7 @@
             // ChangePasswordButt
             // 
             this.ChangePasswordButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ChangePasswordButt.Location = new System.Drawing.Point(232, 248);
+            this.ChangePasswordButt.Location = new System.Drawing.Point(232, 333);
             this.ChangePasswordButt.Name = "ChangePasswordButt";
             this.ChangePasswordButt.Size = new System.Drawing.Size(171, 58);
             this.ChangePasswordButt.TabIndex = 4;
@@ -120,11 +121,22 @@
             this.ChangeResetHourButt.Text = "Změnit čas resetu";
             this.ChangeResetHourButt.UseVisualStyleBackColor = true;
             // 
+            // ChangeIdleTimeButt
+            // 
+            this.ChangeIdleTimeButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ChangeIdleTimeButt.Location = new System.Drawing.Point(232, 248);
+            this.ChangeIdleTimeButt.Name = "ChangeIdleTimeButt";
+            this.ChangeIdleTimeButt.Size = new System.Drawing.Size(171, 58);
+            this.ChangeIdleTimeButt.TabIndex = 7;
+            this.ChangeIdleTimeButt.Text = "Změnit práh nečinnosti";
+            this.ChangeIdleTimeButt.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 417);
+            this.ClientSize = new System.Drawing.Size(439, 506);
+            this.Controls.Add(this.ChangeIdleTimeButt);
             this.Controls.Add(this.ChangeResetHourButt);
             this.Controls.Add(this.ChangePasswordButt);
             this.Controls.Add(this.StatusLbl);
@@ -144,6 +156,10 @@
             this.TopMost = true;
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button ChangeIdleTimeButt;
+
+        private System.Windows.Forms.Button Změnit;
 
         private System.Windows.Forms.Button ChangeResetHourButt;
 

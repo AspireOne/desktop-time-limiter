@@ -25,8 +25,7 @@ namespace Digital_wellbeing
             LockHandler.MachineUnlocked += HandleMachineUnlocked;
             SessionChangeHandler.LockWorkStation();
         }
-
-        // TODO: Maybe remove and apply the overlay on login/logout. Idk if it removes itself on lockescreen.
+        
         private void HandleMachineUnlocked(object sender, EventArgs e)
         {
             if (!Locked)
@@ -34,8 +33,6 @@ namespace Digital_wellbeing
                 Debug.WriteLine("Unlock event was not removed properly in PcLocker from SessionChangeHandler.");
                 return;
             }
-            
-            
         }
 
         public void Unlock()

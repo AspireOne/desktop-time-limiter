@@ -1,0 +1,15 @@
+C:\Users\matej\RiderProjects\Digital-Wellbeing\bin\Release\Digital-Wellbeing.exe.config
+C:\Users\matej\RiderProjects\Digital-Wellbeing\bin\Release\Digital-Wellbeing.exe
+C:\Users\matej\RiderProjects\Digital-Wellbeing\bin\Release\Digital-Wellbeing.pdb
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.csproj.AssemblyReference.cache
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.csproj.SuggestedBindingRedirects.cache
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital_wellbeing.BlackBackground.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital_wellbeing.MainForm.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital_wellbeing.TextDialog.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.Properties.Resources.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.Resource1.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital_wellbeing.TimeDialog.resources
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.csproj.GenerateResource.cache
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.csproj.CoreCompileInputs.cache
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.exe
+C:\Users\matej\RiderProjects\Digital-Wellbeing\obj\Release\Digital-Wellbeing.pdb

@@ -45,7 +45,7 @@ namespace Digital_wellbeing
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BlackBackground";
-            this.Opacity = 0.5;
+            this.Opacity = 0.65;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

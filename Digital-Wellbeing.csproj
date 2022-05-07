@@ -104,6 +104,7 @@
       <DependentUpon>TimeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SessionChangeHandler.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="BlackBackground.resx">
       <DependentUpon>BlackBackground.cs</DependentUpon>
     </EmbeddedResource>

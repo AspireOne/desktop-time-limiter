@@ -10,6 +10,7 @@ namespace Digital_wellbeing
     public partial class MainForm : Form
     {
         private const byte DefaultMaxTimeMins = 240;
+        private const byte DefaultIdleThresholdMins = 7;
         private readonly ResetChecker ResetChecker;
         private readonly PcLocker PcLocker;
         private int LastShown = int.MaxValue;
@@ -50,15 +51,21 @@ namespace Digital_wellbeing
             int passedSecsToday = Config.GetIntOrNull(Config.Property.PassedTodaySecs) ?? 0;
             PassedTimeWatcher.PassedMillis = (int)TimeSpan.FromSeconds(passedSecsToday).TotalMilliseconds;
             PassedTimeWatcher.MaxTime = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.MaxTimeMins) ?? DefaultMaxTimeMins);
+            PassedTimeWatcher.IdleThreshold = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.IdleThresholdMins) ?? DefaultIdleThresholdMins);
 
             Config.SetValue(Config.Property.LastOpenUnixSecs, DateTimeOffset.Now.ToUnixTimeSeconds());
-            
-            if (ResetChecker.ShouldResetPassedTime())
-                Reset();
         }
 
         protected override void OnHandleCreated(EventArgs e)
         {
+            if (ResetChecker.ShouldResetPassedTime())
+                Reset();
+
+            /*if (PassedTimeWatcher.PassedMillis >= PassedTimeWatcher.MaxTime.TotalMilliseconds)
+            {
+                MessageBox.Show("Dnes už nezbývá žádný čas", "Oznámení o zbývajícím čase", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }*/
+            
             ResetChecker.Start();
             PassedTimeWatcher.Running = true;
             base.OnHandleCreated(e);
@@ -108,7 +115,7 @@ namespace Digital_wellbeing
 
                 LastShown = timePoint;
                 action.Invoke();
-            }   
+            }
         }
 
         private void SetButtonListeners()
@@ -117,6 +124,17 @@ namespace Digital_wellbeing
             {
                 if (RequestPassword())
                     Application.Exit();
+            };
+
+            ChangeIdleTimeButt.Click += (_, _) =>
+            {
+                TimeSpan currTime = PassedTimeWatcher.IdleThreshold;
+                TimeSpan? time = ObtainTimeOrNull(currTime);
+                if (time is not null && RequestPassword())
+                {
+                    PassedTimeWatcher.IdleThreshold = time.Value;
+                    Config.SetValue(Config.Property.IdleThresholdMins, (int)time.Value.TotalMinutes);
+                }
             };
 
             ChangeResetHourButt.Click += (_, _) =>

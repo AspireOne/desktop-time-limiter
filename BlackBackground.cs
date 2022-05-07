@@ -22,7 +22,7 @@ namespace Digital_wellbeing
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            Invoke(new EventHandler((_, _) => ShowInactiveTopmost(this)));
+            Invoke(new EventHandler((_, _) => Utils.ShowInactiveTopmost(this)));
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -51,36 +51,6 @@ namespace Digital_wellbeing
                 e.Cancel = true;
             
             base.OnFormClosing(e);
-        }
-        
-        private const int SW_SHOWNOACTIVATE = 4;
-        private const int HWND_TOPMOST = -1;
-        private const uint SWP_NOACTIVATE = 0x0010;
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-        private static extern bool SetWindowPos(
-            int hWnd,             // Window handle
-            int hWndInsertAfter,  // Placement-order handle
-            int x,                // Horizontal position
-            int y,                // Vertical position
-            int cx,               // Width
-            int cy,               // Height
-            uint uFlags);         // Window positioning flags
-
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        private static void ShowInactiveTopmost(Form frm)
-        {
-            try
-            {
-                ShowWindow(frm.Handle, SW_SHOWNOACTIVATE);
-                SetWindowPos(frm.Handle.ToInt32(), HWND_TOPMOST, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, SWP_NOACTIVATE);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Could not set overlay topmost.");
-            }
         }
     }
 }

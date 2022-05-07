@@ -8,18 +8,19 @@ namespace Digital_wellbeing
 {
     public static class Config
     {
-        public enum Property { MaxTimeMins, ResetHour, Password, LastOpenUnixSecs, PassedTodaySecs }
+        public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenUnixSecs, PassedTodaySecs }
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "digital-wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
-            { Property.MaxTimeMins, "max-time-minutes" },
+            { Property.LastOpenUnixSecs, "last open unix (seconds)" },
+            { Property.PassedTodaySecs, "passed time today (seconds)" },
+            { Property.MaxTimeMins, "max time (minutes)" },
+            { Property.IdleThresholdMins, "idle threshold (minutes)" },
+            { Property.ResetHour, "reset hour" },
             { Property.Password, "password" },
-            { Property.LastOpenUnixSecs, "last-open-unix-seconds" },
-            { Property.PassedTodaySecs, "passed-seconds-today" },
-            { Property.ResetHour, "reset-hour" },
         };
 
         public static string? GetValueOrNull(Property property)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 
 namespace Digital_wellbeing
@@ -12,8 +13,8 @@ namespace Digital_wellbeing
         public static event EventHandler<bool>? OnRunningChanged;
         
         public static TimeSpan MaxTime;
+        public static TimeSpan IdleThreshold;
         private static readonly int UpdateFrequencyMillis = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
-        private static readonly int IdleThresholdMillis = (int)TimeSpan.FromMinutes(7).TotalMilliseconds;
         private static readonly Timer Timer = new Timer(OnTimerTick, null, Timeout.Infinite, UpdateFrequencyMillis);
 
         private static bool Idle;
@@ -41,14 +42,13 @@ namespace Digital_wellbeing
         private static void OnTimerTick(object state)
         {
             uint idleTimeMillis = GetIdleTimeMillis();
-
-            if (idleTimeMillis >= IdleThresholdMillis)
+            
+            if (idleTimeMillis >= IdleThreshold.TotalMilliseconds)
             {
-                Debug.WriteLine("Is idle.");
                 if (Idle)
                     return;
                 
-                Debug.WriteLine("Has just became idle.");
+                Debug.WriteLine($"Has just became idle (time: {PassedMillis}).");
                 Idle = true;
                 PassedMillis -= (int)idleTimeMillis;
                 OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
