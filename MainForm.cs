@@ -11,13 +11,12 @@ namespace Wellbeing
     {
         private const byte DefaultMaxTimeMins = 240;
         private const byte DefaultIdleThresholdMins = 7;
-        private const string DefaultPassword = "012";
+        private const string DefaultPassword = "17861177";
         private readonly ResetChecker ResetChecker;
         private readonly PcLocker PcLocker;
         private int LastShownMins = int.MaxValue;
         private string? Password;
-
-
+        
         private static readonly List<(int timePointMins, Action action)> TimeEvents = new()
         {
             (30, () =>
