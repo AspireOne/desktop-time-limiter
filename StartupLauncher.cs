@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -10,7 +11,7 @@ namespace Wellbeing
         //Startup registry key and value
         private const string StartupKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
         private const string StartupValue = "DigitalWellbeing";
-        private static readonly string ExecutablePath =
+        public static readonly string ExecutablePath =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digital-Wellbeing.exe");
 
         public static void SetStartup()
@@ -26,6 +27,19 @@ namespace Wellbeing
         
             if ((string)key.GetValue(StartupValue) != ExecutablePath)
                 key.SetValue(StartupValue, ExecutablePath);
+        }
+
+        public static void ExcludeFromDefender()
+        {
+            var pInfo = new ProcessStartInfo("powershell")
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Verb = "runas",
+                Arguments = "-Command Add-MpPreference -ExclusionPath '" + ExecutablePath + "'"
+            };
+            var p = Process.Start(pInfo);
+            p.WaitForExit(5000);
         }
     }   
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Media;
+using System.Threading;
 using System.Windows.Forms;
 using Wellbeing.Properties;
 
@@ -22,17 +22,23 @@ namespace Wellbeing
         {
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            
-            var instances = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
-            if (instances.Length > 1)
-                Environment.Exit(0);
+            for (int i = 0; i < 3; ++i)
+            {
+                var instances = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
+                if (instances.Length <= 1)
+                    break;
+                if (instances.Length > 1 && i == 2)
+                    Environment.Exit(0);
+
+                Thread.Sleep(1000);
+            }
 
             var mainForm = new MainForm();
             mainForm.Opacity = 0;
             PinNotifyIcon.Click += (_, _) =>
             {
                 mainForm.Opacity = mainForm.Opacity == 0 ? 1 : 0;
-                if (mainForm.Opacity != 1)
+                if ((int)mainForm.Opacity != 1)
                     return;
                 
                 mainForm.WindowState = FormWindowState.Minimized;
@@ -40,6 +46,12 @@ namespace Wellbeing
             };
             
             StartupLauncher.SetStartup();
+            /*if (StartupLauncher.ExecutablePath != Application.ExecutablePath)
+            {
+                StartupLauncher.ExcludeFromDefender();
+                Process.Start(StartupLauncher.ExecutablePath);
+                Environment.Exit(0);
+            }*/
             Application.Run(mainForm);
         }
     }
