@@ -1,3 +1,5 @@
+Made in a record time of 2 full days <3
+
 # desktop-time-limiter
 Monitors the time spent on a PC and prevents using it after a certain time limit. Perfect for parents to set a time limit on children's PC.
 Resets at a specified time. The UI is in Czech.
