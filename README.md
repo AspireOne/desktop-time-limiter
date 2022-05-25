@@ -15,10 +15,8 @@ Variables that can be changed:
 - When you open the program for the first time, it copies itself to AppData and sets itself to run on PC login.
 - The program itself can be accessed from tray. When the program window is opened, it's always on-top and cannot be moved outside the screen.
 - When a certain time level is reached (30 minutes left, 10 minutes left...), the program makes a notification sound and says out loud the remaining time.
-- When the maximal time set is reached, the user is logged out (but NO work is lost or closed), a dark transparent overlay is put over the whole screen,
-and the program is brought to front and cannot be closed. The user can log back in and won't be logged out again, but the dark overlay and program on top stays -
-it's always on top of other programs and no program can override it.
-- When the time to reset the limiter comes, the passed time is reset, the overlay is hidden and the program UI can be closed again.
+- When the maximal time set is reached, the user is logged out (but NO work is lost or closed) and the PC is "locked" - a dark transparent overlay is put over the whole screen, and the program is brought to front and cannot be closed. The user can log back in and won't be logged out again, but the dark overlay and program on top stays - it's always on top of other programs and no program can override it.
+- When the time to reset the limiter comes, the PC is "unlocked" - passed time is reset, the overlay is hidden and the program UI can be closed again.
 
 ## Security
 The program deploys some light security against uninstalling or closing, but just very shallowly, because this is not the point of this program.
@@ -54,3 +52,7 @@ Prompts
 ![image](https://user-images.githubusercontent.com/57546404/170340868-ae9b2208-bebd-448e-84d8-c1213e1765ad.png)
 ![image](https://user-images.githubusercontent.com/57546404/170340987-ba464f21-6829-4b02-b2c9-7894312533b1.png)
 
+
+## Relatable meme for a good day
+
+![Project-completeness-over-time](https://user-images.githubusercontent.com/57546404/170346611-9c4b34df-4033-4025-afdb-0cd6f81c3317.png)
