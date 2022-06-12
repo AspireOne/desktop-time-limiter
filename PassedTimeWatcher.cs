@@ -16,6 +16,7 @@ namespace Wellbeing
         private static readonly int UpdateFrequencyMillis = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
         private static readonly Timer Timer = new Timer(OnTimerTick, null, Timeout.Infinite, UpdateFrequencyMillis);
 
+        private static uint lastIdleTimeMillis = 0;
         private static bool Idle;
         public static int PassedMillis;
         private static bool _running;
@@ -49,16 +50,21 @@ namespace Wellbeing
                 
                 Debug.WriteLine($"Has just became idle (time: {PassedMillis}).");
                 Idle = true;
-                PassedMillis -= (int)idleTimeMillis;
+                // When the PC goes into sleep, timer doesn't tick. When the PC wakes up, the time spent in sleep
+                // is added to idleTime.
+                bool wokeUpFromSleep = idleTimeMillis - lastIdleTimeMillis > UpdateFrequencyMillis * 3;
+                Debug.WriteLine("Woke up from sleep: " + wokeUpFromSleep);
+                PassedMillis -= (int)(wokeUpFromSleep ? lastIdleTimeMillis : idleTimeMillis);
                 OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
                 return;
             }
             
             Idle = false;
+            lastIdleTimeMillis = idleTimeMillis;
             PassedMillis += UpdateFrequencyMillis;
             OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
 
-            if (PassedMillis >= MaxTime.TotalMilliseconds)
+            if (PassedMillis - idleTimeMillis >= MaxTime.TotalMilliseconds)
             {
                 Running = false;
                 OnMaxTimeReached?.Invoke(null, EventArgs.Empty);

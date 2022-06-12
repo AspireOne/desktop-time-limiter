@@ -272,7 +272,10 @@ namespace Wellbeing
         {
             Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
             if (e.CloseReason is CloseReason.WindowsShutDown or CloseReason.ApplicationExitCall or CloseReason.TaskManagerClosing)
+            {
+                base.OnFormClosing(e);
                 return;
+            }
             
             e.Cancel = true;
             if (!PcLocker.Locked && e.CloseReason == CloseReason.UserClosing)

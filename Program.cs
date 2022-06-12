@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Wellbeing.Properties;
@@ -53,6 +54,20 @@ namespace Wellbeing
                 Environment.Exit(0);
             }*/
             Application.Run(mainForm);
+        }
+        
+        private struct Lastinputinfo { public uint cbSize, dwTime; }
+        [DllImport("User32.dll")] private static extern bool GetLastInputInfo(ref Lastinputinfo plii);
+        [DllImport("Kernel32.dll")] private static extern uint GetLastError();
+        private static uint GetIdleTimeMillis()
+        {
+            var lastInput = new Lastinputinfo();
+            lastInput.cbSize = (uint)Marshal.SizeOf(lastInput);
+
+            if (!GetLastInputInfo(ref lastInput))
+                throw new Exception(GetLastError().ToString());
+
+            return (uint)Environment.TickCount - lastInput.dwTime;
         }
     }
 }
