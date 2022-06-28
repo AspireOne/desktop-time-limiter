@@ -36,6 +36,7 @@ namespace Wellbeing
         {
             InitializeComponent();
             SetButtonListeners();
+            versionLbl.Text = Program.Version;
 
             Password = Config.GetValueOrNull(Config.Property.Password) ?? DefaultPassword;
             ResetChecker = new(Config.GetIntOrNull(Config.Property.ResetHour) ?? 3);
@@ -291,6 +292,11 @@ namespace Wellbeing
             }
             
             base.OnFormClosing(e);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

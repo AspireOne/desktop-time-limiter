@@ -39,6 +39,7 @@
             this.ChangePasswordButt = new System.Windows.Forms.Button();
             this.ChangeResetHourButt = new System.Windows.Forms.Button();
             this.ChangeIdleTimeButt = new System.Windows.Forms.Button();
+            this.versionLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TimeLbl
@@ -131,11 +132,23 @@
             this.ChangeIdleTimeButt.Text = "Změnit práh nečinnosti";
             this.ChangeIdleTimeButt.UseVisualStyleBackColor = true;
             // 
+            // versionLbl
+            // 
+            this.versionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.versionLbl.Location = new System.Drawing.Point(389, 474);
+            this.versionLbl.Name = "versionLbl";
+            this.versionLbl.Size = new System.Drawing.Size(38, 23);
+            this.versionLbl.TabIndex = 8;
+            this.versionLbl.Text = "2.0.0";
+            this.versionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.versionLbl.Click += new System.EventHandler(this.label1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 506);
+            this.Controls.Add(this.versionLbl);
             this.Controls.Add(this.ChangeIdleTimeButt);
             this.Controls.Add(this.ChangeResetHourButt);
             this.Controls.Add(this.ChangePasswordButt);
@@ -156,6 +169,8 @@
             this.TopMost = true;
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label versionLbl;
 
         private System.Windows.Forms.Button ChangeIdleTimeButt;
 
