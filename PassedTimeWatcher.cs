@@ -14,26 +14,29 @@ namespace Wellbeing
         public static TimeSpan MaxTime;
         public static TimeSpan IdleThreshold;
         private static readonly int UpdateFrequencyMillis = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
-        private static readonly Timer Timer = new Timer(OnTimerTick, null, Timeout.Infinite, UpdateFrequencyMillis);
+        private static readonly Timer Timer = new(OnTimerTick, null, Timeout.Infinite, UpdateFrequencyMillis);
 
-        private static uint lastIdleTimeMillis = 0;
+        private static uint LastIdleTimeMillis = 0;
+        private static uint IdleMillisDuringSleep = 0;
         private static bool Idle;
         public static int PassedMillis;
-        private static bool _running;
+        private static bool _Running;
         public static bool Running
         {
-            get => _running;
+            get => _Running;
             set
             {
                 if (value == Running)
                     return;
                 
-                OnRunningChanged?.Invoke(null, value);
-                _running = value;
+                LastIdleTimeMillis = GetIdleTimeMillis();
+                _Running = value;
                 if (value)
                     Timer.Change(0, UpdateFrequencyMillis);
                 else
                     Timer.Change(-1, -1);
+                
+                OnRunningChanged?.Invoke(null, value);
             }
         }
 
@@ -43,32 +46,48 @@ namespace Wellbeing
         {
             uint idleTimeMillis = GetIdleTimeMillis();
             
-            if (idleTimeMillis >= IdleThreshold.TotalMilliseconds)
-            {
-                if (Idle)
-                    return;
-                
-                Debug.WriteLine($"Has just became idle (time: {PassedMillis}).");
-                Idle = true;
-                // When the PC goes into sleep, timer doesn't tick. When the PC wakes up, the time spent in sleep
-                // is added to idleTime.
-                bool wokeUpFromSleep = idleTimeMillis - lastIdleTimeMillis > UpdateFrequencyMillis * 3;
-                Debug.WriteLine("Woke up from sleep: " + wokeUpFromSleep);
-                PassedMillis -= (int)(wokeUpFromSleep ? lastIdleTimeMillis : idleTimeMillis);
-                OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
-                return;
-            }
+            bool isIdleAfterSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
             
-            Idle = false;
-            lastIdleTimeMillis = idleTimeMillis;
-            PassedMillis += UpdateFrequencyMillis;
-            OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
+            // If is idle after sleep and after_sleep_idle_time_offset has not been set yet.
+            if (isIdleAfterSleep && IdleMillisDuringSleep == 0)
+                IdleMillisDuringSleep = idleTimeMillis - LastIdleTimeMillis;
+            else if (idleTimeMillis <= UpdateFrequencyMillis * 2)
+                IdleMillisDuringSleep = 0;
 
-            if (PassedMillis - idleTimeMillis >= MaxTime.TotalMilliseconds)
-            {
-                Running = false;
-                OnMaxTimeReached?.Invoke(null, EventArgs.Empty);
-            }
+            idleTimeMillis -= IdleMillisDuringSleep;
+
+            if (idleTimeMillis >= IdleThreshold.TotalMilliseconds)
+                HandleIdleTick(idleTimeMillis);
+            else
+                HandleTick(idleTimeMillis);
+            
+            OnUpdate?.Invoke(null, (PassedMillis, (int)MaxTime.TotalMilliseconds - PassedMillis));
+            LastIdleTimeMillis = idleTimeMillis;
+        }
+
+        private static void HandleIdleTick(uint idleTimeMillis)
+        {
+            if (Idle)
+                return;
+            Idle = true;
+            Debug.WriteLine($"Has just became idle (time: {PassedMillis}).");
+            /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
+            Debug.WriteLine("Woke up from sleep: " + wokeUpFromSleep);*/
+            PassedMillis -= (int)idleTimeMillis;
+        }
+
+        private static void HandleTick(uint idleTimeMillis)
+        {
+            Idle = false;
+            PassedMillis += UpdateFrequencyMillis;
+
+            // If max time is not reached yet.
+            if (PassedMillis - idleTimeMillis < MaxTime.TotalMilliseconds)
+                return;
+            
+            // When the timer runs out.
+            Running = false;
+            OnMaxTimeReached?.Invoke(null, EventArgs.Empty);
         }
 
         // https://www.pinvoke.net/default.aspx/user32.getlastinputinfo
