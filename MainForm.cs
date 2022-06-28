@@ -13,6 +13,7 @@ namespace Wellbeing
         private const byte DefaultIdleThresholdMins = 7;
         private const string DefaultPassword = "17861177";
         private readonly ResetChecker ResetChecker;
+        private readonly UpdateWatcher UpdateWatcher;
         private readonly PcLocker PcLocker;
         private int LastShownMins = int.MaxValue;
         private string? Password;
@@ -38,9 +39,19 @@ namespace Wellbeing
 
             Password = Config.GetValueOrNull(Config.Property.Password) ?? DefaultPassword;
             ResetChecker = new(Config.GetIntOrNull(Config.Property.ResetHour) ?? 3);
+            UpdateWatcher = new();
             PcLocker = new(this);
 
-            ResetChecker.ShouldReset += (_, _) => Reset();
+            ResetChecker.ShouldResetHandler += (_, _) => Reset();
+            UpdateWatcher.OnUpdateAvailable += (_, _) =>
+            {
+                Updater.DownloadLatestUpdateAsync(update =>
+                {
+                    Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
+                    update();
+                });
+            };
+            
             PassedTimeWatcher.OnRunningChanged += (_, running) =>
                 Invoke(new EventHandler((_, _) => StatusLbl.Text = running ? "Zapnuto" : "Pozastaveno"));
             PassedTimeWatcher.OnUpdate += (_, time) =>
@@ -67,6 +78,7 @@ namespace Wellbeing
             }*/
             
             ResetChecker.Start();
+            UpdateWatcher.Start();
             PassedTimeWatcher.Running = true;
             base.OnHandleCreated(e);
         }
@@ -271,15 +283,14 @@ namespace Wellbeing
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
-            if (e.CloseReason is CloseReason.WindowsShutDown or CloseReason.ApplicationExitCall or CloseReason.TaskManagerClosing)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                base.OnFormClosing(e);
-                return;
+                e.Cancel = true;
+                if (!PcLocker.Locked)
+                    Opacity = 0;
             }
             
-            e.Cancel = true;
-            if (!PcLocker.Locked && e.CloseReason == CloseReason.UserClosing)
-                Opacity = 0;
+            base.OnFormClosing(e);
         }
     }
 }
