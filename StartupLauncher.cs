@@ -8,28 +8,20 @@ namespace Wellbeing
 {
     public static class StartupLauncher
     {
-        //Startup registry key and value
+        //Startup registry key and value.
         private const string StartupKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
         private const string StartupValue = "DigitalWellbeing";
-        public static readonly string ExecutablePath =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Digital-Wellbeing.exe");
+        public static readonly string ExecutablePath = Path.Combine(Program.RootDirectory, Program.ExeName);
 
-        public static void SetStartup()
+        public static void SetLaunchOnStartup()
         {
-            bool areDifferent = ExecutablePath != Application.ExecutablePath && !Utils.AreFileContentsEqual(ExecutablePath, Application.ExecutablePath);
-            if (!File.Exists(ExecutablePath) || areDifferent)
-            {
-                File.Delete(ExecutablePath);
-                File.Copy(Application.ExecutablePath, ExecutablePath);   
-            }
-
             using RegistryKey key = Registry.CurrentUser.OpenSubKey(StartupKey, true)!;
         
             if ((string)key.GetValue(StartupValue) != ExecutablePath)
                 key.SetValue(StartupValue, ExecutablePath);
         }
 
-        public static void ExcludeFromDefender()
+        /*public static void ExcludeFromDefender()
         {
             var pInfo = new ProcessStartInfo("powershell")
             {
@@ -40,6 +32,6 @@ namespace Wellbeing
             };
             var p = Process.Start(pInfo);
             p.WaitForExit(5000);
-        }
+        }*/
     }   
 }
