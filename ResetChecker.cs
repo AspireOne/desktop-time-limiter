@@ -6,10 +6,10 @@ namespace Wellbeing
 {
     public class ResetChecker
     {
-        public event EventHandler? ShouldReset;
+        public event EventHandler? ShouldResetHandler;
+        public int ResetHour;
         private readonly Timer Timer;
         private readonly DateTimeOffset LastOpen;
-        public int ResetHour;
 
         public ResetChecker(int resetHour)
         {
@@ -33,7 +33,7 @@ namespace Wellbeing
             if (!ShouldResetPassedTime())
                 return;
 
-            ShouldReset?.Invoke(this, EventArgs.Empty);
+            ShouldResetHandler?.Invoke(this, EventArgs.Empty);
         }
 
         public bool ShouldResetPassedTime()

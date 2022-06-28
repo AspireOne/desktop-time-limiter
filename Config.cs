@@ -12,7 +12,7 @@ namespace Wellbeing
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "digital-wellbeing-config.txt");
+            Path.Combine(Program.RootDirectory, "digital-wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
             { Property.LastOpenUnixSecs, "last open unix (seconds)" },
