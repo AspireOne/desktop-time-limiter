@@ -66,6 +66,8 @@
         <Compile Include="TextDialog.Designer.cs" />
         <Compile Include="TimeDialog.cs" />
         <Compile Include="TimeDialog.Designer.cs" />
+        <Compile Include="UpdateWatcher.cs" />
+        <Compile Include="Updater.cs" />
         <Compile Include="Utils.cs" />
         <EmbeddedResource Include="BlackBackground.resx">
           <DependentUpon>BlackBackground.cs</DependentUpon>
