@@ -53,6 +53,7 @@
         <Compile Include="BlackBackground.cs" />
         <Compile Include="BlackBackground.Designer.cs" />
         <Compile Include="Config.cs" />
+        <Compile Include="Logger.cs" />
         <Compile Include="MainForm.cs" />
         <Compile Include="MainForm.Designer.cs" />
         <Compile Include="PassedTimeWatcher.cs" />

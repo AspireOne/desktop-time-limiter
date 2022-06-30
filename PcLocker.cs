@@ -30,7 +30,7 @@ namespace Wellbeing
         {
             if (!Locked)
             {
-                Debug.WriteLine("Unlock event was not removed properly in PcLocker from SessionChangeHandler.");
+                Logger.Log("Unlock event was not removed properly in PcLocker from SessionChangeHandler.");
                 return;
             }
         }

@@ -25,14 +25,14 @@ public static class Updater
     {
         string[] availableVersions = await FetchAvailableVersions();
 
-        Debug.WriteLine("Available versions: ");
-        Array.ForEach(availableVersions, x => Debug.WriteLine(x));
+        Logger.Log("Available versions: ", false);
+        Array.ForEach(availableVersions, x => Logger.Log(x, false));
 
         string highestVer = GetHighestVersion(availableVersions);
-        Debug.WriteLine("\nhighest version: " + highestVer);
+        Logger.Log("highest version: " + highestVer);
 
         bool highestIsHigherThanCurr = IsVersionHigher(highestVer, Program.Version);
-        Debug.WriteLine("\nHighest available is higher than current: " + highestIsHigherThanCurr);
+        Logger.Log("Highest available is higher than current: " + highestIsHigherThanCurr);
 
         return highestIsHigherThanCurr;
     }
@@ -51,12 +51,13 @@ public static class Updater
 
         try
         {
+            Logger.Log("Downloading update");
             wc.DownloadFileAsync(new Uri(ExeUrl), DownloadedExePath);
         }
         catch (WebException e)
         {
-            Debug.WriteLine("A handled error occured while trying to download new update binary.");
-            Debug.WriteLine(e);
+            Logger.Log("A handled error occured while trying to download new update binary.");
+            Logger.Log(e);
         }
     }
 

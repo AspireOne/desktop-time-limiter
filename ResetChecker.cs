@@ -29,7 +29,7 @@ namespace Wellbeing
 
         private void HandleTick(object obj, ElapsedEventArgs e)
         {
-            Debug.WriteLine("Checking if should reset passed time...");
+            Logger.Log("Checking if should reset passed time...");
             if (!ShouldResetPassedTime())
                 return;
 

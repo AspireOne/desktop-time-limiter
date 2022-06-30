@@ -18,7 +18,10 @@ namespace Wellbeing
             using RegistryKey key = Registry.CurrentUser.OpenSubKey(StartupKey, true)!;
         
             if ((string)key.GetValue(StartupValue) != ExecutablePath)
+            {
+                Logger.Log("Registry path to executable was not correct. Rewriting.");
                 key.SetValue(StartupValue, ExecutablePath);
+            }
         }
 
         /*public static void ExcludeFromDefender()

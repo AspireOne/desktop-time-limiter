@@ -48,7 +48,7 @@ namespace Wellbeing
             {
                 Updater.DownloadLatestUpdateAsync(update =>
                 {
-                    Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
+                    PassedTimeWatcher.SaveToConfig();
                     update();
                 });
             };
@@ -95,7 +95,7 @@ namespace Wellbeing
 
         private void Reset()
         {
-            Debug.WriteLine("Resetting passed time.");
+            Logger.Log("Resetting passed time.");
             PassedTimeWatcher.PassedMillis = 0;
             Resume();
             Config.SetValue(Config.Property.PassedTodaySecs, "0");
@@ -254,7 +254,7 @@ namespace Wellbeing
             if (result == DialogResult.OK)
                 return TimeSpan.FromMinutes((int)dialog.HoursBox.Value * 60 + (int)dialog.MinutesBox.Value);
             
-            Debug.WriteLine(result);
+            Logger.Log(result);
             
             return null;
         }
@@ -283,7 +283,7 @@ namespace Wellbeing
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedTimeWatcher.PassedMillis).TotalSeconds);
+            PassedTimeWatcher.SaveToConfig();
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;

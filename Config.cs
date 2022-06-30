@@ -12,7 +12,7 @@ namespace Wellbeing
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
-            Path.Combine(Program.RootDirectory, "digital-wellbeing-config.txt");
+            Path.Combine(Program.RootDirectory, "wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
             { Property.LastOpenUnixSecs, "last open unix (seconds)" },
@@ -25,7 +25,7 @@ namespace Wellbeing
 
         public static string? GetValueOrNull(Property property)
         {
-            Debug.WriteLine("Getting config value.");
+            Logger.Log("Getting config value.", false);
             if (!File.Exists(Location))
                 File.Create(Location).Close();
             
@@ -43,10 +43,10 @@ namespace Wellbeing
         
         public static void SetValue(Property property, object value)
         {
-            Debug.WriteLine("Setting config value.");
+            Logger.Log("Setting config value.", false);
             if (!File.Exists(Location))
                 File.Create(Location).Close();
-
+            
             string propName = PropertyName[property];
             string configLine = propName + PropertyValueSeparator + value;
             string[] lines = File.ReadAllLines(Location);
@@ -61,7 +61,7 @@ namespace Wellbeing
                 set = true;
                 break;
             }
-
+            
             if (set)
                 File.WriteAllLines(Location, lines);
             else

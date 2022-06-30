@@ -12,9 +12,10 @@ namespace Wellbeing
 {
     internal static class Program
     {
+        private const bool IsDebug = true;
         public enum ConsoleAction { Delete };
 
-        public const string Version = "2.0.0";
+        public const string Version = "2.0.2";
         public static readonly Dictionary<ConsoleAction, string> ConsoleActions = new()
         {
             { ConsoleAction.Delete , "--delete" }
@@ -28,47 +29,65 @@ namespace Wellbeing
 
         public static readonly string RootDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Wellbeing");
-        public const string ExeName = "Digital-Wellbeing.exe";
+        public const string ExeName = "Wellbeing.exe";
 
         /// <summary>The main entry point for the application.</summary>
         [STAThread]
         private static void Main(string[] args)
         {
             if (!Directory.Exists(RootDirectory))
+            {
+                Logger.Log("Program directory did not exist, creating.");
                 Directory.CreateDirectory(RootDirectory);
-            
+            }
+
             for (int i = 0; i < args.Length; ++i)
             {
                 if (args[i] == ConsoleActions[ConsoleAction.Delete])
                 {
+                    Logger.Log("deleting (based on console argument): " + (args.Length > i+1 ? args[i + 1] : "no path specified"));
                     HandleDeleteArgument(args, i);
+                    i += 1;
                     continue;
                 }
                 
-                Debug.WriteLine("Unrecognized console argument.");
+                Logger.Log("Unrecognized console argument.");
             }
             
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            
+
+
+            bool replaced = false;
             if (ShouldReplaceCurrent())
             {
+                Logger.Log("Replacing current.");
                 ReplaceCurrent();
+                replaced = true;
+            }
+
+            if (replaced || ShouldOpenMainExe())
+            {
                 ProcessStartInfo startInfo = new()
                 {
                     FileName = StartupLauncher.ExecutablePath,
                     Arguments = ConsoleActions[ConsoleAction.Delete] + " " + Application.ExecutablePath
                 };
+                Logger.Log("Starting new instance and closing this one.");
                 Process.Start(startInfo);
                 return;
             }
 
             if (!CheckIsSingleInstance())
+            {
+                Logger.Log("Instance is not single, closing.");
                 return;
+            }
                 
             //StartupLauncher.ExcludeFromDefender();
+            Logger.Log("Set launch on startup registry value.");
             StartupLauncher.SetLaunchOnStartup();
-
+            
             var mainForm = InitMainForm();
             Application.Run(mainForm);
         }
@@ -76,13 +95,13 @@ namespace Wellbeing
         private static void HandleDeleteArgument(IReadOnlyList<string> args, int index)
         {
             if (index+1 == args.Count || args[index+1].StartsWith("-"))
-                Debug.WriteLine("Invalid console arguments.");
+                Logger.Log("Invalid console arguments.");
 
             string filename = args[index+1];
             if (File.Exists(filename))
                 TryDeleteRecursively(filename);
             else
-                Debug.WriteLine("File path doesn't exist");
+                Logger.Log("File path doesn't exist");
         }
 
         /// <summary>
@@ -101,7 +120,7 @@ namespace Wellbeing
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Ignoring exception while deleting.");
+                    Logger.Log("Ignoring exception while recursicely deleting (expected, process migt not be closed yet).");
                     Thread.Sleep(1000);
                 }   
             }
@@ -163,6 +182,8 @@ namespace Wellbeing
                    && !Utils.AreFileContentsEqual(StartupLauncher.ExecutablePath, Application.ExecutablePath);
         }
 
+        private static bool ShouldOpenMainExe() => StartupLauncher.ExecutablePath != Application.ExecutablePath;
+
         /// <summary>
         /// Closes all other instances of this program.
         /// </summary>
@@ -172,8 +193,14 @@ namespace Wellbeing
             int ownProcessId = Process.GetCurrentProcess().Id;
             foreach (Process process in runningProcesses)
             {
-                if (process.ProcessName == "Digital-Wellbeing" && process.Id != ownProcessId)
+                if (process.ProcessName == "Wellbeing" && process.Id != ownProcessId)
+                {
+                    Logger.Log("Closing other process.");
                     process.CloseMainWindow();
+                    Thread.Sleep(200);
+                    process.Kill();
+                    process.WaitForExit(2000);
+                }
             }
         }
     }

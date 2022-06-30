@@ -42,7 +42,7 @@ namespace Wellbeing
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Could not set overlay topmost.");
+                Logger.Log("Could not set overlay topmost.");
             }
         }
     }

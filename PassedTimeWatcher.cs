@@ -11,13 +11,15 @@ namespace Wellbeing
         public static event EventHandler? OnMaxTimeReached;
         public static event EventHandler<bool>? OnRunningChanged;
         
-        public static TimeSpan MaxTime;
-        public static TimeSpan IdleThreshold;
+        private static readonly int AutosaveFrequencyMillis = (int)TimeSpan.FromMinutes(5).TotalMilliseconds;
         private static readonly int UpdateFrequencyMillis = (int)TimeSpan.FromSeconds(1).TotalMilliseconds;
         private static readonly Timer Timer = new(OnTimerTick, null, Timeout.Infinite, UpdateFrequencyMillis);
-
-        private static uint LastIdleTimeMillis = 0;
-        private static uint IdleMillisDuringSleep = 0;
+        
+        public static TimeSpan MaxTime;
+        public static TimeSpan IdleThreshold;
+        private static uint AutosaveCounterMillis;
+        private static uint LastIdleTimeMillis;
+        private static uint IdleMillisDuringSleep;
         private static bool Idle;
         public static int PassedMillis;
         private static bool _Running;
@@ -44,14 +46,21 @@ namespace Wellbeing
 
         private static void OnTimerTick(object state)
         {
+            AutosaveCounterMillis += (uint)UpdateFrequencyMillis;
+            if (AutosaveCounterMillis >= AutosaveFrequencyMillis)
+            {
+                SaveToConfig();
+                AutosaveCounterMillis = 0;
+            }
+            
             uint idleTimeMillis = GetIdleTimeMillis();
             
-            bool isIdleAfterSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
+            bool isIdleAfterSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 3;
             
             // If is idle after sleep and after_sleep_idle_time_offset has not been set yet.
             if (isIdleAfterSleep && IdleMillisDuringSleep == 0)
                 IdleMillisDuringSleep = idleTimeMillis - LastIdleTimeMillis;
-            else if (idleTimeMillis <= UpdateFrequencyMillis * 2)
+            else if (idleTimeMillis <= UpdateFrequencyMillis * 3)
                 IdleMillisDuringSleep = 0;
 
             idleTimeMillis -= IdleMillisDuringSleep;
@@ -70,9 +79,9 @@ namespace Wellbeing
             if (Idle)
                 return;
             Idle = true;
-            Debug.WriteLine($"Has just became idle (time: {PassedMillis}).");
+            Logger.Log($"Has just became idle (time: {PassedMillis}).");
             /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
-            Debug.WriteLine("Woke up from sleep: " + wokeUpFromSleep);*/
+            Logger.Log("Woke up from sleep: " + wokeUpFromSleep);*/
             PassedMillis -= (int)idleTimeMillis;
         }
 
@@ -103,5 +112,7 @@ namespace Wellbeing
 
             return (uint)Environment.TickCount - lastInput.dwTime;
         }
+
+        public static void SaveToConfig() => Config.SetValue(Config.Property.PassedTodaySecs, (int)TimeSpan.FromMilliseconds(PassedMillis).TotalSeconds);
     }
 }
