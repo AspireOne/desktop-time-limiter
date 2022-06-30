@@ -17,6 +17,7 @@ Variables that can be changed:
 - When a certain time level is reached (30 minutes left, 10 minutes left...), the program makes a notification sound and says out loud the remaining time.
 - When the maximal time set is reached, the user is logged out (but NO work is lost or closed) and the PC is "locked" - a dark transparent overlay is put over the whole screen, and the program is brought to front and cannot be closed. The user can log back in and won't be logged out again, but the dark overlay and program on top stays - it's always on top of other programs and no program can override it.
 - When the time to reset the limiter comes, the PC is "unlocked" - passed time is reset, the overlay is hidden and the program UI can be closed again.
+- The program updates itself automatically (according to releases here on github).
 
 ## Security
 The program deploys some light security against uninstalling or closing, but just very shallowly, because this is not the point of this program.
