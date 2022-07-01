@@ -9,9 +9,12 @@ namespace Wellbeing
 {
     public partial class MainForm : Form
     {
+        private const byte defaultResetHour = 3;
         private const byte DefaultMaxTimeMins = 240;
-        private const byte DefaultIdleThresholdMins = 7;
+        private const byte DefaultIdleThresholdMins = 6;
+        private const string DateTimeFormatter = "G";
         private const string DefaultPassword = "17861177";
+        
         private readonly ResetChecker ResetChecker;
         private readonly UpdateWatcher UpdateWatcher;
         private readonly PcLocker PcLocker;
@@ -38,8 +41,11 @@ namespace Wellbeing
             SetButtonListeners();
             versionLbl.Text = Program.Version;
 
+            DateTime lastOpen = Config.GetDateTime(Config.Property.LastOpenDateTime, DateTimeFormatter) ?? DateTime.MinValue;
+            int resetHour = Config.GetIntOrNull(Config.Property.ResetHour) ?? defaultResetHour;
+            ResetChecker = new(resetHour, lastOpen);
+            
             Password = Config.GetValueOrNull(Config.Property.Password) ?? DefaultPassword;
-            ResetChecker = new(Config.GetIntOrNull(Config.Property.ResetHour) ?? 3);
             UpdateWatcher = new();
             PcLocker = new(this);
 
@@ -64,8 +70,8 @@ namespace Wellbeing
             PassedTimeWatcher.PassedMillis = (int)TimeSpan.FromSeconds(passedSecsToday).TotalMilliseconds;
             PassedTimeWatcher.MaxTime = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.MaxTimeMins) ?? DefaultMaxTimeMins);
             PassedTimeWatcher.IdleThreshold = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.IdleThresholdMins) ?? DefaultIdleThresholdMins);
-
-            Config.SetValue(Config.Property.LastOpenUnixSecs, DateTimeOffset.Now.ToUnixTimeSeconds());
+            
+            Config.SetValue(Config.Property.LastOpenDateTime, DateTime.Now.ToString(DateTimeFormatter));
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -261,7 +267,7 @@ namespace Wellbeing
 
         private static void PlayNotification(int remaining = -1)
         {
-            using SoundPlayer audio = new(); // here WindowsFormsApplication1 is the namespace and Connect is the audio file name
+            using SoundPlayer audio = new();
             audio.Stream = remaining switch
             {
                 30 => Properties.Resources._30_minutes,
@@ -283,14 +289,17 @@ namespace Wellbeing
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            PassedTimeWatcher.SaveToConfig();
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
                 if (!PcLocker.Locked)
                     Opacity = 0;
             }
-            
+            else
+            {
+                PassedTimeWatcher.SaveToConfig();
+                Logger.Log($"Closing program. Reason: {e.CloseReason}");
+            }
             base.OnFormClosing(e);
         }
 

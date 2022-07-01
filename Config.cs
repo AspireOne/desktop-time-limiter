@@ -8,21 +8,21 @@ namespace Wellbeing
 {
     public static class Config
     {
-        public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenUnixSecs, PassedTodaySecs }
+        public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenDateTime, PassedTodaySecs }
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
             Path.Combine(Program.RootDirectory, "wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
-            { Property.LastOpenUnixSecs, "last open unix (seconds)" },
+            { Property.LastOpenDateTime, "last open (datetime)" },
             { Property.PassedTodaySecs, "passed time today (seconds)" },
             { Property.MaxTimeMins, "max time (minutes)" },
             { Property.IdleThresholdMins, "idle threshold (minutes)" },
             { Property.ResetHour, "reset hour" },
             { Property.Password, "password" },
         };
-
+        
         public static string? GetValueOrNull(Property property)
         {
             Logger.Log("Getting config value.", false);
@@ -36,7 +36,15 @@ namespace Wellbeing
                 .Select(line => line.Replace(propName + PropertyValueSeparator, ""))
                 .FirstOrDefault();
         }
-        
+
+        public static DateTime? GetDateTime(Property property, string format = "G")
+        {
+            string? dateStr = GetValueOrNull(property);
+            if (dateStr is null)
+                return null;
+
+            return DateTime.ParseExact(dateStr, format, null);
+        }
         public static int? GetIntOrNull(Property property) => int.TryParse(GetValueOrNull(property), out int value) ? value : null;
         public static long? GetLongOrNull(Property property) => long.TryParse(GetValueOrNull(property), out long value) ? value : null;
         public static float? GetFloatOrNull(Property property) => float.TryParse(GetValueOrNull(property), out float value) ? value : null;

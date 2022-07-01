@@ -7,17 +7,33 @@ namespace Wellbeing
     public class ResetChecker
     {
         public event EventHandler? ShouldResetHandler;
-        public int ResetHour;
         private readonly Timer Timer;
-        private readonly DateTimeOffset LastOpen;
 
-        public ResetChecker(int resetHour)
+        private DateTime NextResetTime;
+        private DateTime _TimePoint;
+        private DateTime TimePoint
+        {
+            get => _TimePoint;
+            set
+            {
+                _TimePoint = value;
+                // 00:00 (date.Date) + ResetHour (3) = 3:00 am.
+                DateTime timePointDayResetHour = TimePoint.Date.AddHours(ResetHour);
+                // If date is before 3:00am (00:00 - 2:59), next 3:00am is today's 3:00am.
+                // Otherwise it's the next 3:00am is the next day, so we add 1 day to today's 3am.
+                NextResetTime = TimePoint <= timePointDayResetHour ? timePointDayResetHour : timePointDayResetHour.AddDays(1);
+                //PreviousResetHour = LastOpen <= lastOpenDayResetHour ? lastOpenDayResetHour.AddDays(-1) : lastOpenDayResetHour;
+            }
+        }
+        public int ResetHour;
+
+        public ResetChecker(int resetHour, DateTime lastOpen)
         {
             ResetHour = resetHour;
-            LastOpen = DateTimeOffset.FromUnixTimeSeconds(Config.GetIntOrNull(Config.Property.LastOpenUnixSecs) ?? 0);
+            TimePoint = lastOpen;
             Timer = new()
             {
-                Interval = TimeSpan.FromMinutes(5).TotalMilliseconds,
+                Interval = TimeSpan.FromMinutes(10).TotalMilliseconds,
                 Enabled = false,
                 AutoReset = true
             };
@@ -29,24 +45,14 @@ namespace Wellbeing
 
         private void HandleTick(object obj, ElapsedEventArgs e)
         {
-            Logger.Log("Checking if should reset passed time...");
+            Logger.Log("Checking if should reset passed time...", false);
             if (!ShouldResetPassedTime())
                 return;
-
+            
+            TimePoint = DateTime.Now.Add(TimeSpan.FromMinutes(1));
             ShouldResetHandler?.Invoke(this, EventArgs.Empty);
         }
 
-        public bool ShouldResetPassedTime()
-        {
-            DateTimeOffset currentDatetime = DateTimeOffset.Now;
-            bool lastOpenBeforeResetTime =
-                LastOpen.Day != currentDatetime.Day
-                || LastOpen.Month != currentDatetime.Month
-                || LastOpen.Year != currentDatetime.Year
-                || LastOpen.Hour <= ResetHour;
-            
-            bool isAfterResetTime = currentDatetime.Hour >= ResetHour;
-            return lastOpenBeforeResetTime && isAfterResetTime;
-        }
+        public bool ShouldResetPassedTime() => DateTime.Now >= NextResetTime;
     }
 }
