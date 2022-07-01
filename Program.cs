@@ -12,10 +12,9 @@ namespace Wellbeing
 {
     internal static class Program
     {
-        private const bool IsDebug = true;
         public enum ConsoleAction { Delete };
 
-        public const string Version = "2.0.2";
+        public const string Version = "2.0.3";
         public static readonly Dictionary<ConsoleAction, string> ConsoleActions = new()
         {
             { ConsoleAction.Delete , "--delete" }
@@ -111,7 +110,7 @@ namespace Wellbeing
         /// <returns></returns>
         private static bool TryDeleteRecursively(string filename)
         {
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < 15; ++i)
             {
                 try
                 {
@@ -121,7 +120,7 @@ namespace Wellbeing
                 catch (Exception e)
                 {
                     Logger.Log("Ignoring exception while recursicely deleting (expected, process migt not be closed yet).");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(200);
                 }   
             }
 
