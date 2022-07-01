@@ -70,7 +70,7 @@ namespace Wellbeing
                 ProcessStartInfo startInfo = new()
                 {
                     FileName = StartupLauncher.ExecutablePath,
-                    Arguments = ConsoleActions[ConsoleAction.Delete] + " " + Application.ExecutablePath
+                    Arguments = $"{ConsoleActions[ConsoleAction.Delete]} \"{Application.ExecutablePath}\""
                 };
                 Logger.Log("Starting new instance and closing this one.");
                 Process.Start(startInfo);
