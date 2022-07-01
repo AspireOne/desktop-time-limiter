@@ -9,6 +9,18 @@ namespace Wellbeing
         public event EventHandler? ShouldResetHandler;
         private readonly Timer Timer;
 
+        private int _ResetHour;
+
+        public int ResetHour
+        {
+            get => _ResetHour;
+            set
+            {
+                _ResetHour = value;
+                // Refresh timepoint.
+                TimePoint = TimePoint;
+            }
+        }
         private DateTime NextResetTime;
         private DateTime _TimePoint;
         private DateTime TimePoint
@@ -25,7 +37,6 @@ namespace Wellbeing
                 //PreviousResetHour = LastOpen <= lastOpenDayResetHour ? lastOpenDayResetHour.AddDays(-1) : lastOpenDayResetHour;
             }
         }
-        public int ResetHour;
 
         public ResetChecker(int resetHour, DateTime lastOpen)
         {
