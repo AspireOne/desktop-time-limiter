@@ -38,8 +38,11 @@ the encryption key and not loading it into memory to prevent memory dump),
 - have obfuscated code (to confuse IL instructions viewer and decompilers like DotPeek)
 
 ## How to install
-VirusTotal comes out clean, but Windows Defender's Machine Learning flags it as "Trojan:Script/Wacatac.B!ml" - sometimes immediately, sometimes on the next PC login.
-If you're using Windows Defender, I'd recommend excluding the program from detection or allowing it when it prompts.
+VirusTotal comes out clean, but Windows Defender's Machine Learning flags it - sometimes immediately, sometimes on the next PC login.
+If you're using Windows Defender, exclude the process "Wellbeing.exe" and location %appdata%\Roaming\Wellbeing
+
+![image](https://user-images.githubusercontent.com/57546404/176916296-d06788bd-c4b5-4c6d-93d8-b9e9d37cf805.png)
+
 
 Otherwise just download and run and it will take care of itself.
 
