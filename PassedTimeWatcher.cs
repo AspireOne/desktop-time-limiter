@@ -82,7 +82,10 @@ namespace Wellbeing
             Logger.Log($"Has just became idle");
             /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
             Logger.Log("Woke up from sleep: " + wokeUpFromSleep);*/
-            PassedMillis -= (int)idleTimeMillis;
+            if (idleTimeMillis > PassedMillis)
+                PassedMillis = 0;
+            else
+                PassedMillis -= (int)idleTimeMillis;
         }
 
         private static void HandleTick(uint idleTimeMillis)

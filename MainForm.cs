@@ -259,9 +259,7 @@ namespace Wellbeing
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK)
                 return TimeSpan.FromMinutes((int)dialog.HoursBox.Value * 60 + (int)dialog.MinutesBox.Value);
-            
-            Logger.Log(result);
-            
+
             return null;
         }
 
