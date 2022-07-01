@@ -12,13 +12,18 @@ public static class Logger
 
     static Logger()
     {
-        File.AppendAllText(LogPath, $"\n\n----------------------\n{DateTime.Now:F}\n");
+        File.AppendAllText(LogPath, $"\n\n———————————————————\n{DateTime.Now:F}\n");
     }
     public static void Log(object msg, bool toFile = true)
     {
-        Debug.WriteLine(msg);
-        
+        string timeMark = $"[{DateTime.Now:HH:mm}] ";
+        string message = $"{timeMark} {msg}";
+#if DEBUG
+        Debug.WriteLine(message);
+#else
+        Console.WriteLine(message);
+#endif
         if (toFile)
-            File.AppendAllText(LogPath, msg + "\n");
+            File.AppendAllText(LogPath, message + "\n");
     }
 }
