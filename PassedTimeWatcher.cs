@@ -79,7 +79,7 @@ namespace Wellbeing
             if (Idle)
                 return;
             Idle = true;
-            Logger.Log($"Has just became idle (time: {PassedMillis}).");
+            Logger.Log($"Has just became idle");
             /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
             Logger.Log("Woke up from sleep: " + wokeUpFromSleep);*/
             PassedMillis -= (int)idleTimeMillis;
@@ -87,7 +87,11 @@ namespace Wellbeing
 
         private static void HandleTick(uint idleTimeMillis)
         {
-            Idle = false;
+            if (Idle)
+            {
+                Logger.Log($"Has just stopped being idle. Idle time (minutes): " + (LastIdleTimeMillis / 1000)/60);
+                Idle = false;   
+            }
             PassedMillis += UpdateFrequencyMillis;
 
             // If max time is not reached yet.
