@@ -41,7 +41,7 @@ namespace Wellbeing
             SetButtonListeners();
             versionLbl.Text = Program.Version;
 
-            DateTime lastOpen = Config.GetDateTime(Config.Property.LastOpenDateTime, DateTimeFormatter) ?? DateTime.MinValue;
+            DateTime lastOpen = Config.GetDateTime(Config.Property.LastOpenOrResetDateTime, DateTimeFormatter) ?? DateTime.MinValue;
             int resetHour = Config.GetIntOrNull(Config.Property.ResetHour) ?? defaultResetHour;
             ResetChecker = new(resetHour, lastOpen);
             
@@ -71,7 +71,7 @@ namespace Wellbeing
             PassedTimeWatcher.MaxTime = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.MaxTimeMins) ?? DefaultMaxTimeMins);
             PassedTimeWatcher.IdleThreshold = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.IdleThresholdMins) ?? DefaultIdleThresholdMins);
             
-            Config.SetValue(Config.Property.LastOpenDateTime, DateTime.Now.ToString(DateTimeFormatter));
+            Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.ToString(DateTimeFormatter));
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -105,6 +105,10 @@ namespace Wellbeing
             PassedTimeWatcher.PassedMillis = 0;
             Resume();
             Config.SetValue(Config.Property.PassedTodaySecs, "0");
+            // So that when we next open the program and last opened time is before the reset time,
+            // it doesn't assume that it wasn't reset yet.
+            if (DateTime.Now.Hour == ResetChecker.ResetHour)
+                Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.AddMinutes(1).ToString(DateTimeFormatter));
         }
 
         private void Resume()

@@ -8,14 +8,14 @@ namespace Wellbeing
 {
     public static class Config
     {
-        public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenDateTime, PassedTodaySecs }
+        public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenOrResetDateTime, PassedTodaySecs }
         private const string PropertyValueSeparator = ": ";
 
         private static readonly string Location =
             Path.Combine(Program.RootDirectory, "wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
-            { Property.LastOpenDateTime, "last open (datetime)" },
+            { Property.LastOpenOrResetDateTime, "last open or reset (datetime)" },
             { Property.PassedTodaySecs, "passed time today (seconds)" },
             { Property.MaxTimeMins, "max time (minutes)" },
             { Property.IdleThresholdMins, "idle threshold (minutes)" },
