@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Media;
 using System.Windows.Forms;
 
@@ -237,6 +238,21 @@ namespace Wellbeing
                 
                 Config.SetValue(Config.Property.Password, newPassword);
                 Password = newPassword;
+            };
+
+            LogButt.Click += (_, _) =>
+            {
+                if (File.Exists(Logger.LogPath))
+                    Process.Start(Logger.LogPath);
+            };
+
+            AppButt.Click += (_, _) =>
+            {
+#if !DEBUG
+                if (!RequestPassword())
+                    return;
+#endif
+                Process.Start(Program.RootDirectory);
             };
         }
 

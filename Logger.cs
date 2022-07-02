@@ -8,7 +8,7 @@ namespace Wellbeing;
 
 public static class Logger
 {
-    private static readonly string LogPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "log.txt");
+    public static readonly string LogPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "log.txt");
 
     static Logger()
     {

@@ -40,6 +40,8 @@
             this.ChangeResetHourButt = new System.Windows.Forms.Button();
             this.ChangeIdleTimeButt = new System.Windows.Forms.Button();
             this.versionLbl = new System.Windows.Forms.Label();
+            this.LogButt = new System.Windows.Forms.Button();
+            this.AppButt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TimeLbl
@@ -139,15 +141,37 @@
             this.versionLbl.Name = "versionLbl";
             this.versionLbl.Size = new System.Drawing.Size(38, 23);
             this.versionLbl.TabIndex = 8;
-            this.versionLbl.Text = "2.0.0";
+            this.versionLbl.Text = "x.x.x";
             this.versionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.versionLbl.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // LogButt
+            // 
+            this.LogButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LogButt.Location = new System.Drawing.Point(332, 474);
+            this.LogButt.Name = "LogButt";
+            this.LogButt.Size = new System.Drawing.Size(51, 23);
+            this.LogButt.TabIndex = 9;
+            this.LogButt.Text = "Log";
+            this.LogButt.UseVisualStyleBackColor = true;
+            // 
+            // AppButt
+            // 
+            this.AppButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.AppButt.Location = new System.Drawing.Point(275, 474);
+            this.AppButt.Name = "AppButt";
+            this.AppButt.Size = new System.Drawing.Size(51, 23);
+            this.AppButt.TabIndex = 10;
+            this.AppButt.Text = "App";
+            this.AppButt.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 506);
+            this.Controls.Add(this.AppButt);
+            this.Controls.Add(this.LogButt);
             this.Controls.Add(this.versionLbl);
             this.Controls.Add(this.ChangeIdleTimeButt);
             this.Controls.Add(this.ChangeResetHourButt);
@@ -169,6 +193,10 @@
             this.TopMost = true;
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button AppButt;
+
+        private System.Windows.Forms.Button LogButt;
 
         private System.Windows.Forms.Label versionLbl;
 
