@@ -29,10 +29,9 @@ public static class Updater
         Array.ForEach(availableVersions, x => Logger.Log(x, false));
 
         string highestVer = GetHighestVersion(availableVersions);
-        Logger.Log("highest version: " + highestVer);
-
         bool highestIsHigherThanCurr = IsVersionHigher(highestVer, Program.Version);
-        Logger.Log("Highest available is higher than current: " + highestIsHigherThanCurr);
+        
+        Logger.Log($"Update checked. Highest version: {highestVer} | is newer: {highestIsHigherThanCurr}");
 
         return highestIsHigherThanCurr;
     }

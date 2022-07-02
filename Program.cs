@@ -14,7 +14,7 @@ namespace Wellbeing
     {
         public enum ConsoleAction { Delete };
 
-        public const string Version = "2.0.4";
+        public const string Version = "2.0.5";
         public static readonly Dictionary<ConsoleAction, string> ConsoleActions = new()
         {
             { ConsoleAction.Delete , "--delete" }

@@ -17,7 +17,7 @@ namespace Wellbeing
         private const string DefaultPassword = "17861177";
         
         private readonly ResetChecker ResetChecker;
-        private readonly UpdateWatcher UpdateWatcher;
+        private readonly UpdateChecker UpdateChecker;
         private readonly PcLocker PcLocker;
         private int LastShownMins = int.MaxValue;
         private string? Password;
@@ -47,11 +47,11 @@ namespace Wellbeing
             ResetChecker = new(resetHour, lastOpen);
             
             Password = Config.GetValueOrNull(Config.Property.Password) ?? DefaultPassword;
-            UpdateWatcher = new();
+            UpdateChecker = new();
             PcLocker = new(this);
 
             ResetChecker.ShouldResetHandler += (_, _) => Reset();
-            UpdateWatcher.OnUpdateAvailable += (_, _) =>
+            UpdateChecker.OnUpdateAvailable += (_, _) =>
             {
                 Updater.DownloadLatestUpdateAsync(update =>
                 {
@@ -86,7 +86,7 @@ namespace Wellbeing
             }*/
             
             ResetChecker.Start();
-            UpdateWatcher.Start();
+            UpdateChecker.Start();
             PassedTimeWatcher.Running = true;
             base.OnHandleCreated(e);
         }
@@ -293,6 +293,7 @@ namespace Wellbeing
                 0 => Properties.Resources.time_reached,
                 _ => Properties.Resources.generic_notification
             };
+            
             audio.Play();
         }
 

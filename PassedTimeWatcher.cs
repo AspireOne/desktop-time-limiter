@@ -79,7 +79,7 @@ namespace Wellbeing
             if (Idle)
                 return;
             Idle = true;
-            Logger.Log($"Has just became idle");
+            Logger.Log($"Has just became idle", false);
             /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
             Logger.Log("Woke up from sleep: " + wokeUpFromSleep);*/
             if (idleTimeMillis > PassedMillis)

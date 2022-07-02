@@ -4,16 +4,16 @@ using System.Timers;
 
 namespace Wellbeing;
 
-public class UpdateWatcher
+public class UpdateChecker
 {
     public event EventHandler? OnUpdateAvailable;
     private readonly Timer Timer;
     
-    public UpdateWatcher()
+    public UpdateChecker()
     {
         Timer = new()
         {
-            Interval = TimeSpan.FromMinutes(60).TotalMilliseconds,
+            Interval = TimeSpan.FromMinutes(90).TotalMilliseconds,
             Enabled = false,
             AutoReset = true
         };
@@ -31,7 +31,6 @@ public class UpdateWatcher
 
     private async void HandleTick(object obj, ElapsedEventArgs e)
     {
-        Logger.Log("Checking if update available");
         if (!await Updater.IsUpdateAvailable())
             return;
         
