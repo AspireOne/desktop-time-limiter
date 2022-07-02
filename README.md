@@ -4,12 +4,12 @@ Made in a record time of 2 full days <3
 Monitors the time spent on a PC and prevents using it after a certain time limit. Perfect for parents to set a time limit on children's PC.
 Resets at a specified time. The UI is in Czech.
 Variables that can be changed:
-- the hour the timer resets at
-- Passed time
+- The hour the timer resets at
+- The time that passed
 - Password
-- Maximal time (time limit)
+- Time limit
 - Inactivity threshold (after how much time the user is considered inactive)
-- State (stop/pause/close)
+- State (pause/resume/close)
 
 ## Behavior
 - When you open the program for the first time, it copies itself to AppData and sets itself to run on PC login.
@@ -38,8 +38,10 @@ the encryption key and not loading it into memory to prevent memory dump),
 - have obfuscated code (to confuse IL instructions viewer and decompilers like DotPeek)
 
 ## How to install
-VirusTotal comes out clean, but Windows Defender's Machine Learning flags it - sometimes immediately, sometimes on the next PC login.
+VirusTotal comes out clean (including ESET, McAfee, Kaspersky, Avast, MalwareBytes...), but Windows Defender's Machine Learning flags it - sometimes immediately, sometimes on the next PC login.
 If you're using Windows Defender, exclude the process "Wellbeing.exe" and location %appdata%\Roaming\Wellbeing
+
+[VirusTotal for version 2.0.3](https://www.virustotal.com/gui/file/9937ffab99f7c0f7bd33a7aabdeb05d6ec356316db954631d3320d6210f68e84/detection)
 
 ![image](https://user-images.githubusercontent.com/57546404/176916296-d06788bd-c4b5-4c6d-93d8-b9e9d37cf805.png)
 
