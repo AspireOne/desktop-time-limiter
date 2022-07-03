@@ -45,5 +45,8 @@ namespace Wellbeing
                 Logger.Log("Could not set overlay topmost.");
             }
         }
+
+        public static string FormatTime(TimeSpan time) => time.ToString("h'h 'm'm 's's'");
+        public static string FormatTime(long millis) => FormatTime(TimeSpan.FromMilliseconds(millis));
     }
 }

@@ -59,7 +59,13 @@ namespace Wellbeing
             
             // If is idle after sleep and after_sleep_idle_time_offset has not been set yet.
             if (isIdleAfterSleep && IdleMillisDuringSleep == 0)
+            {
                 IdleMillisDuringSleep = idleTimeMillis - LastIdleTimeMillis;
+                Logger.Log($"Woke up from sleep." +
+                           $"Idle during sleep: {Utils.FormatTime(IdleMillisDuringSleep)} | " +
+                           $"Idle before sleep: {Utils.FormatTime(idleTimeMillis - IdleMillisDuringSleep)} | " +
+                           $"Idle total: {Utils.FormatTime(idleTimeMillis)}");
+            }
             else if (idleTimeMillis <= UpdateFrequencyMillis * 3)
                 IdleMillisDuringSleep = 0;
 
@@ -80,8 +86,6 @@ namespace Wellbeing
                 return;
             Idle = true;
             Logger.Log($"Has just became idle", false);
-            /*bool wokeUpFromSleep = idleTimeMillis > LastIdleTimeMillis + UpdateFrequencyMillis * 2;
-            Logger.Log("Woke up from sleep: " + wokeUpFromSleep);*/
             if (idleTimeMillis > PassedMillis)
                 PassedMillis = 0;
             else
@@ -92,8 +96,8 @@ namespace Wellbeing
         {
             if (Idle)
             {
-                Logger.Log($"Has just stopped being idle. Idle time (minutes): " + (LastIdleTimeMillis / 1000)/60);
-                Idle = false;   
+                Logger.Log($"Has just stopped being idle. Idle time (minutes): {LastIdleTimeMillis/1000/60}");
+                Idle = false;
             }
             PassedMillis += UpdateFrequencyMillis;
 
