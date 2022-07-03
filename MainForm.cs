@@ -10,7 +10,7 @@ namespace Wellbeing
 {
     public partial class MainForm : Form
     {
-        private const byte defaultResetHour = 3;
+        private const byte DefaultResetHour = 3;
         private const byte DefaultMaxTimeMins = 240;
         private const byte DefaultIdleThresholdMins = 6;
         private const string DateTimeFormatter = "G";
@@ -43,7 +43,7 @@ namespace Wellbeing
             versionLbl.Text = Program.Version;
 
             DateTime lastOpen = Config.GetDateTime(Config.Property.LastOpenOrResetDateTime, DateTimeFormatter) ?? DateTime.MinValue;
-            int resetHour = Config.GetIntOrNull(Config.Property.ResetHour) ?? defaultResetHour;
+            int resetHour = Config.GetIntOrNull(Config.Property.ResetHour) ?? DefaultResetHour;
             ResetChecker = new(resetHour, lastOpen);
             
             Password = Config.GetValueOrNull(Config.Property.Password) ?? DefaultPassword;
@@ -106,10 +106,7 @@ namespace Wellbeing
             PassedTimeWatcher.PassedMillis = 0;
             Resume();
             Config.SetValue(Config.Property.PassedTodaySecs, "0");
-            // So that when we next open the program and last opened time is before the reset time,
-            // it doesn't assume that it wasn't reset yet.
-            if (DateTime.Now.Hour == ResetChecker.ResetHour)
-                Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.AddMinutes(1).ToString(DateTimeFormatter));
+            Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.AddMinutes(1).ToString(DateTimeFormatter));
         }
 
         private void Resume()
