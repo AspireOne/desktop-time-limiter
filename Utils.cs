@@ -46,7 +46,18 @@ namespace Wellbeing
             }
         }
 
-        public static string FormatTime(TimeSpan time) => time.ToString("h'h 'm'm 's's'");
+        public static string FormatTime(TimeSpan time)
+        {
+            /*int hours = (int)time.TotalHours;
+            int minutes = time.Minutes;
+            int seconds = time.Seconds;
+            return (hours == 0 ? "" : hours + "h")
+                   + (hours != 0 && minutes != 0 ? " " : "")
+                   + (hours != 0 && minutes == 0 ? "" : minutes + "min")
+                   + (seconds == 0 ? "" : $" {seconds} secs");*/
+            return time.ToString("h'h 'm'm 's's'");
+        }
+
         public static string FormatTime(long millis) => FormatTime(TimeSpan.FromMilliseconds(millis));
     }
 }
