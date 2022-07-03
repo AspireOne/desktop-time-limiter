@@ -42,6 +42,9 @@
             this.versionLbl = new System.Windows.Forms.Label();
             this.LogButt = new System.Windows.Forms.Button();
             this.AppButt = new System.Windows.Forms.Button();
+            this.DumpButt = new System.Windows.Forms.Button();
+            this.UpdateButt = new System.Windows.Forms.Button();
+            this.IdleLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TimeLbl
@@ -137,7 +140,7 @@
             // versionLbl
             // 
             this.versionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.versionLbl.Location = new System.Drawing.Point(389, 474);
+            this.versionLbl.Location = new System.Drawing.Point(386, 502);
             this.versionLbl.Name = "versionLbl";
             this.versionLbl.Size = new System.Drawing.Size(38, 23);
             this.versionLbl.TabIndex = 8;
@@ -148,7 +151,7 @@
             // LogButt
             // 
             this.LogButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.LogButt.Location = new System.Drawing.Point(332, 474);
+            this.LogButt.Location = new System.Drawing.Point(329, 502);
             this.LogButt.Name = "LogButt";
             this.LogButt.Size = new System.Drawing.Size(51, 23);
             this.LogButt.TabIndex = 9;
@@ -158,18 +161,50 @@
             // AppButt
             // 
             this.AppButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.AppButt.Location = new System.Drawing.Point(275, 474);
+            this.AppButt.Location = new System.Drawing.Point(272, 502);
             this.AppButt.Name = "AppButt";
             this.AppButt.Size = new System.Drawing.Size(51, 23);
             this.AppButt.TabIndex = 10;
             this.AppButt.Text = "App";
             this.AppButt.UseVisualStyleBackColor = true;
             // 
+            // DumpButt
+            // 
+            this.DumpButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DumpButt.Location = new System.Drawing.Point(3, 523);
+            this.DumpButt.Name = "DumpButt";
+            this.DumpButt.Size = new System.Drawing.Size(10, 12);
+            this.DumpButt.TabIndex = 11;
+            this.DumpButt.Text = "Dump";
+            this.DumpButt.UseVisualStyleBackColor = true;
+            // 
+            // UpdateButt
+            // 
+            this.UpdateButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.UpdateButt.Location = new System.Drawing.Point(232, 421);
+            this.UpdateButt.Name = "UpdateButt";
+            this.UpdateButt.Size = new System.Drawing.Size(171, 58);
+            this.UpdateButt.TabIndex = 12;
+            this.UpdateButt.Text = "Aktualizovat";
+            this.UpdateButt.UseVisualStyleBackColor = true;
+            // 
+            // IdleLbl
+            // 
+            this.IdleLbl.Location = new System.Drawing.Point(105, 502);
+            this.IdleLbl.Name = "IdleLbl";
+            this.IdleLbl.Size = new System.Drawing.Size(161, 23);
+            this.IdleLbl.TabIndex = 14;
+            this.IdleLbl.Text = "label1";
+            this.IdleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 506);
+            this.ClientSize = new System.Drawing.Size(439, 537);
+            this.Controls.Add(this.IdleLbl);
+            this.Controls.Add(this.UpdateButt);
+            this.Controls.Add(this.DumpButt);
             this.Controls.Add(this.AppButt);
             this.Controls.Add(this.LogButt);
             this.Controls.Add(this.versionLbl);
@@ -193,6 +228,12 @@
             this.TopMost = true;
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label IdleLbl;
+
+        private System.Windows.Forms.Button UpdateButt;
+
+        private System.Windows.Forms.Button DumpButt;
 
         private System.Windows.Forms.Button AppButt;
 

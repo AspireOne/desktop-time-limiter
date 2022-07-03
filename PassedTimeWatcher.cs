@@ -18,9 +18,9 @@ namespace Wellbeing
         public static TimeSpan MaxTime;
         public static TimeSpan IdleThreshold;
         private static uint AutosaveCounterMillis;
-        private static uint LastIdleTimeMillis;
-        private static uint IdleMillisDuringSleep;
-        private static bool Idle;
+        public static uint LastIdleTimeMillis { get; private set; }
+        public static uint IdleMillisDuringSleep { get; private set; }
+        public static bool Idle { get; private set; }
         public static int PassedMillis;
         private static bool _Running;
         public static bool Running
@@ -113,7 +113,7 @@ namespace Wellbeing
         // https://www.pinvoke.net/default.aspx/user32.getlastinputinfo
         [DllImport("User32.dll")] private static extern bool GetLastInputInfo(ref Lastinputinfo plii);
         [DllImport("Kernel32.dll")] private static extern uint GetLastError();
-        private static uint GetIdleTimeMillis()
+        public static uint GetIdleTimeMillis()
         {
             var lastInput = new Lastinputinfo();
             lastInput.cbSize = (uint)Marshal.SizeOf(lastInput);

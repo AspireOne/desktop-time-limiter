@@ -53,11 +53,7 @@ namespace Wellbeing
             ResetChecker.ShouldResetHandler += (_, _) => Reset();
             UpdateChecker.OnUpdateAvailable += (_, _) =>
             {
-                Updater.DownloadLatestUpdateAsync(update =>
-                {
-                    PassedTimeWatcher.SaveToConfig();
-                    update();
-                });
+                Updater.DownloadLatestUpdateAsync(UpdateHandler);
             };
             
             PassedTimeWatcher.OnRunningChanged += (_, running) =>
@@ -73,6 +69,12 @@ namespace Wellbeing
             PassedTimeWatcher.IdleThreshold = TimeSpan.FromMinutes(Config.GetIntOrNull(Config.Property.IdleThresholdMins) ?? DefaultIdleThresholdMins);
             
             Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.ToString(DateTimeFormatter));
+        }
+
+        private static void UpdateHandler(Action update)
+        {
+            PassedTimeWatcher.SaveToConfig();
+            update();
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -124,6 +126,8 @@ namespace Wellbeing
 
         private void HandleTick(int passedMillis, int remainingMillis)
         {
+            if (Opacity != 0)
+                IdleLbl.Text = Utils.FormatTime(PassedTimeWatcher.GetIdleTimeMillis());
             TimeSpan passedTime = TimeSpan.FromMilliseconds(passedMillis);
             TimeSpan remainingTime = TimeSpan.FromMilliseconds(remainingMillis);
             string formatted = "Čas: " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
@@ -250,6 +254,21 @@ namespace Wellbeing
                     return;
 #endif
                 Process.Start(Program.RootDirectory);
+            };
+
+            DumpButt.Click += (_, _) =>
+            {
+                Logger.Log($"DUMP:\n" +
+                           $"  Idle time during sleep: {Utils.FormatTime(PassedTimeWatcher.IdleMillisDuringSleep)}\n" +
+                           $"  Last idle time: {Utils.FormatTime(PassedTimeWatcher.LastIdleTimeMillis)}\n");
+            };
+
+            UpdateButt.Click += async (_, _) =>
+            {
+                if (await Updater.IsUpdateAvailable())
+                    Updater.DownloadLatestUpdateAsync(UpdateHandler);
+                else
+                    MessageBox.Show("Používáte nejnovější verzi!", "Žádné aktualizace");
             };
         }
 
