@@ -58,6 +58,16 @@ namespace Wellbeing
             return time.ToString("h'h 'm'm 's's'");
         }
 
+        public static void StartWithParameters(string filePath, string parameters)
+        {
+            ProcessStartInfo startInfo = new()
+            {
+                FileName = filePath,
+                Arguments = parameters
+            };
+            Process.Start(startInfo);
+        }
+
         public static string FormatTime(long millis) => FormatTime(TimeSpan.FromMilliseconds(millis));
     }
 }

@@ -12,12 +12,13 @@ namespace Wellbeing
 {
     internal static class Program
     {
-        public enum ConsoleAction { Delete };
+        public enum ConsoleAction { Delete, Open };
 
-        public const string Version = "2.0.6";
+        public const string Version = "2.0.7";
         public static readonly Dictionary<ConsoleAction, string> ConsoleActions = new()
         {
-            { ConsoleAction.Delete , "--delete" }
+            { ConsoleAction.Delete , "--delete" },
+            { ConsoleAction.Open , "--open" }
         };
         private static readonly NotifyIcon PinNotifyIcon = new()
         {
@@ -40,6 +41,7 @@ namespace Wellbeing
                 Directory.CreateDirectory(RootDirectory);
             }
 
+            bool open = false;
             for (int i = 0; i < args.Length; ++i)
             {
                 if (args[i] == ConsoleActions[ConsoleAction.Delete])
@@ -49,6 +51,12 @@ namespace Wellbeing
                     i += 1;
                     continue;
                 }
+
+                if (args[i] == ConsoleActions[ConsoleAction.Open])
+                {
+                    open = true;
+                    continue;
+                }
                 
                 Logger.Log("Unrecognized console argument.");
             }
@@ -56,7 +64,7 @@ namespace Wellbeing
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
 
-
+#if !DEBUG
             bool replaced = false;
             if (ShouldReplaceCurrent())
             {
@@ -67,16 +75,13 @@ namespace Wellbeing
 
             if (replaced || ShouldOpenMainExe())
             {
-                ProcessStartInfo startInfo = new()
-                {
-                    FileName = StartupLauncher.ExecutablePath,
-                    Arguments = $"{ConsoleActions[ConsoleAction.Delete]} \"{Application.ExecutablePath}\""
-                };
                 Logger.Log("Starting new instance and closing this one.");
-                Process.Start(startInfo);
+                Utils.StartWithParameters(
+                    StartupLauncher.ExecutablePath,
+                    $"{ConsoleActions[ConsoleAction.Delete]} \"{Application.ExecutablePath}\"");
                 return;
             }
-
+#endif
             if (!CheckIsSingleInstance())
             {
                 Logger.Log("Instance is not single, closing.");
@@ -88,6 +93,8 @@ namespace Wellbeing
             StartupLauncher.SetLaunchOnStartup();
             
             var mainForm = InitMainForm();
+            if (open)
+                mainForm.Opacity = 1;
             Application.Run(mainForm);
         }
 
