@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Wellbeing
@@ -127,7 +128,7 @@ namespace Wellbeing
         private void HandleTick(int passedMillis, int remainingMillis)
         {
             if (Opacity != 0)
-                IdleLbl.Text = Utils.FormatTime(PassedTimeWatcher.GetIdleTimeMillis());
+                IdleLbl.Text = Utils.FormatTime(IdleTimeWatcher.IdleTimeMillis);
             TimeSpan passedTime = TimeSpan.FromMilliseconds(passedMillis);
             TimeSpan remainingTime = TimeSpan.FromMilliseconds(remainingMillis);
             string formatted = "Čas: " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
@@ -263,12 +264,18 @@ namespace Wellbeing
                            $"  Last idle time: {Utils.FormatTime(PassedTimeWatcher.LastIdleTimeMillis)}\n");
             };
 
-            UpdateButt.Click += async (_, _) =>
+            RestartButt.Click += async (_, _) =>
             {
-                if (await Updater.IsUpdateAvailable())
+                Logger.Log("Restart button clicked - restarting.");
+                Utils.StartWithParameters(
+                    Assembly.GetEntryAssembly().Location,
+                    $"{Program.ConsoleActions[Program.ConsoleAction.Open]}");
+                
+                Application.Exit();
+                /*if (await Updater.IsUpdateAvailable())
                     Updater.DownloadLatestUpdateAsync(UpdateHandler);
                 else
-                    MessageBox.Show("Používáte nejnovější verzi!", "Žádné aktualizace");
+                    MessageBox.Show("Používáte nejnovější verzi!", "Žádné aktualizace");*/
             };
         }
 
@@ -336,11 +343,6 @@ namespace Wellbeing
                 Logger.Log($"Closing program. Reason: {e.CloseReason}");
             }
             base.OnFormClosing(e);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }
