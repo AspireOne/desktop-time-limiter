@@ -53,23 +53,26 @@
         <Compile Include="BlackBackground.cs" />
         <Compile Include="BlackBackground.Designer.cs" />
         <Compile Include="Config.cs" />
+        <Compile Include="Hooks\KeyboardHook.cs" />
+        <Compile Include="Hooks\MouseHook.cs" />
         <Compile Include="Logger.cs" />
         <Compile Include="MainForm.cs" />
         <Compile Include="MainForm.Designer.cs" />
-        <Compile Include="PassedTimeWatcher.cs" />
         <Compile Include="PcLocker.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="ResetChecker.cs" />
         <Compile Include="SessionChangeHandler.cs" />
         <Compile Include="StartupLauncher.cs" />
         <Compile Include="TextDialog.cs" />
         <Compile Include="TextDialog.Designer.cs" />
         <Compile Include="TimeDialog.cs" />
         <Compile Include="TimeDialog.Designer.cs" />
-        <Compile Include="UpdateChecker.cs" />
         <Compile Include="Updater.cs" />
         <Compile Include="Utils.cs" />
+        <Compile Include="Watchers\IdleTimeWatcher.cs" />
+        <Compile Include="Watchers\PassedTimeWatcher.cs" />
+        <Compile Include="Watchers\ResetWatcher.cs" />
+        <Compile Include="Watchers\UpdateWatcher.cs" />
         <EmbeddedResource Include="BlackBackground.resx">
           <DependentUpon>BlackBackground.cs</DependentUpon>
         </EmbeddedResource>

@@ -43,7 +43,7 @@
             this.LogButt = new System.Windows.Forms.Button();
             this.AppButt = new System.Windows.Forms.Button();
             this.DumpButt = new System.Windows.Forms.Button();
-            this.UpdateButt = new System.Windows.Forms.Button();
+            this.RestartButt = new System.Windows.Forms.Button();
             this.IdleLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -146,7 +146,6 @@
             this.versionLbl.TabIndex = 8;
             this.versionLbl.Text = "x.x.x";
             this.versionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.versionLbl.Click += new System.EventHandler(this.label1_Click);
             // 
             // LogButt
             // 
@@ -178,15 +177,15 @@
             this.DumpButt.Text = "Dump";
             this.DumpButt.UseVisualStyleBackColor = true;
             // 
-            // UpdateButt
+            // RestartButt
             // 
-            this.UpdateButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.UpdateButt.Location = new System.Drawing.Point(232, 421);
-            this.UpdateButt.Name = "UpdateButt";
-            this.UpdateButt.Size = new System.Drawing.Size(171, 58);
-            this.UpdateButt.TabIndex = 12;
-            this.UpdateButt.Text = "Aktualizovat";
-            this.UpdateButt.UseVisualStyleBackColor = true;
+            this.RestartButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.RestartButt.Location = new System.Drawing.Point(232, 421);
+            this.RestartButt.Name = "RestartButt";
+            this.RestartButt.Size = new System.Drawing.Size(171, 58);
+            this.RestartButt.TabIndex = 12;
+            this.RestartButt.Text = "Restartovat";
+            this.RestartButt.UseVisualStyleBackColor = true;
             // 
             // IdleLbl
             // 
@@ -194,7 +193,7 @@
             this.IdleLbl.Name = "IdleLbl";
             this.IdleLbl.Size = new System.Drawing.Size(161, 23);
             this.IdleLbl.TabIndex = 14;
-            this.IdleLbl.Text = "label1";
+            this.IdleLbl.Text = "-- čas mimo počítač";
             this.IdleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainForm
@@ -203,7 +202,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(439, 537);
             this.Controls.Add(this.IdleLbl);
-            this.Controls.Add(this.UpdateButt);
+            this.Controls.Add(this.RestartButt);
             this.Controls.Add(this.DumpButt);
             this.Controls.Add(this.AppButt);
             this.Controls.Add(this.LogButt);
@@ -231,7 +230,7 @@
 
         private System.Windows.Forms.Label IdleLbl;
 
-        private System.Windows.Forms.Button UpdateButt;
+        private System.Windows.Forms.Button RestartButt;
 
         private System.Windows.Forms.Button DumpButt;
 
