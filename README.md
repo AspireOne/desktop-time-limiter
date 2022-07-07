@@ -51,7 +51,7 @@ Otherwise just download and run and it will take care of itself.
 ## Screenshots
 UI
 
-![image](https://user-images.githubusercontent.com/57546404/170340720-261647eb-02dd-4334-b7ae-168201d472f5.png)
+![image](https://user-images.githubusercontent.com/57546404/177046026-1d70d972-7404-4eda-ad16-043953158387.png)
 
 Prompts
 
