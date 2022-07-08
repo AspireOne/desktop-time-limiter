@@ -107,13 +107,16 @@ namespace Wellbeing
         {
             Logger.Log("Resetting passed time.");
             PassedTimeWatcher.PassedMillis = 0;
-            Resume();
+            UnlockIfLocked();
             Config.SetValue(Config.Property.PassedTodaySecs, "0");
             Config.SetValue(Config.Property.LastOpenOrResetDateTime, DateTime.Now.AddMinutes(1).ToString(DateTimeFormatter));
         }
 
-        private void Resume()
+        private void UnlockIfLocked()
         {
+            if (!PcLocker.Locked)
+                return;
+            
             PcLocker.Unlock();
             PassedTimeWatcher.Running = true;
         }
@@ -214,7 +217,7 @@ namespace Wellbeing
                 
                 PassedTimeWatcher.PassedMillis = (int)time.Value.TotalMilliseconds;
                 if (PassedTimeWatcher.PassedMillis < PassedTimeWatcher.MaxTime.TotalMilliseconds)
-                    Resume();
+                    UnlockIfLocked();
             };
 
             ChangeMaxButt.Click += (_, _) =>
@@ -228,7 +231,7 @@ namespace Wellbeing
                 PassedTimeWatcher.MaxTime = time.Value;
                 
                 if (PassedTimeWatcher.PassedMillis < PassedTimeWatcher.MaxTime.TotalMilliseconds)
-                    Resume();
+                    UnlockIfLocked();
             };
 
             ChangePasswordButt.Click += (_, _) =>
@@ -268,7 +271,7 @@ namespace Wellbeing
             {
                 Logger.Log("Restart button clicked - restarting.");
                 Utils.StartWithParameters(
-                    Assembly.GetEntryAssembly().Location,
+                    Assembly.GetEntryAssembly()!.Location,
                     $"{Program.ConsoleActions[Program.ConsoleAction.Open]}");
                 
                 Application.Exit();
