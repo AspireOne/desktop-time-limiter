@@ -16,7 +16,8 @@ public static class Logger
 
     static Logger()
     {
-        File.AppendAllText(LogPath, $"\n\n{RunSeparatorLine}\n{DateTime.Now:F}\n");
+        string spacing = File.Exists(LogPath) ? "\n\n" : "";
+        File.AppendAllText(LogPath, $"{spacing}{RunSeparatorLine}\n{DateTime.Now:F}\n");
         FormatLog();
     }
 
