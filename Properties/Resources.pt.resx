@@ -34506,4 +34506,13 @@
   <data name="Time" xml:space="preserve">
     <value>Hora</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Bem-estar digital</value>
+  </data>
 </root>

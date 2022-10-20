@@ -34506,4 +34506,13 @@
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nueva contraseña</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Bienestar digital</value>
+  </data>
 </root>
