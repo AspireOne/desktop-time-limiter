@@ -117,27 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppTitle" xml:space="preserve">
-    <value>Digital well-being</value>
-  </data>
-  <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Change idle time needed to reset</value>
-  </data>
-  <data name="ChangeMaxButt" xml:space="preserve">
-    <value>Change Max allowed time</value>
-  </data>
-  <data name="ChangePass" xml:space="preserve">
-    <value>Change Password</value>
-  </data>
-  <data name="ChangePassedButt" xml:space="preserve">
-    <value>Change elapsed time</value>
-  </data>
-  <data name="ChangeResetHour" xml:space="preserve">
-    <value>Change time of day to reset</value>
-  </data>
-  <data name="ChangeTimePassed" xml:space="preserve">
-    <value>Change time passed</value>
-  </data>
   <data name="generic_notification" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAEAQAAABZTeXN0ZW0uSU8uTWVtb3J5U3RyZWFtCgAAAAdfYnVmZmVyB19v
@@ -4862,18 +4841,6 @@
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
   </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New Password</value>
-  </data>
-  <data name="On" xml:space="preserve">
-    <value>On</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="program_icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7774,24 +7741,6 @@
         AAAAAAAAAAAAAAAAAAAAAPAPAADAAwAAgAEAAIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAIABAACAAQAAwAMAAPAPAAA=
 </value>
-  </data>
-  <data name="Restart" xml:space="preserve">
-    <value>Restart</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
-  </data>
-  <data name="Terminate" xml:space="preserve">
-    <value>Terminate</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Time</value>
   </data>
   <data name="time_reached" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -34514,5 +34463,47 @@
         f39+gH6Af4B/f39/f39/f39/gH6AfoB+gH+AgH6Af4B+gH+AgH6Af4B/gICAfwBpZDMgHgAAAElEMwMA
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
+  </data>
+  <data name="ChangeIdleTime" xml:space="preserve">
+    <value>Alterar o tempo ocioso necessário para redefinir</value>
+  </data>
+  <data name="ChangeMaxButt" xml:space="preserve">
+    <value>Mudança Max tempo permitido</value>
+  </data>
+  <data name="ChangePass" xml:space="preserve">
+    <value>Alterar senha</value>
+  </data>
+  <data name="ChangePassedButt" xml:space="preserve">
+    <value>Mudança de tempo</value>
+  </data>
+  <data name="ChangeResetHour" xml:space="preserve">
+    <value>Mudar a hora do dia para redefinir</value>
+  </data>
+  <data name="ChangeTimePassed" xml:space="preserve">
+    <value>O tempo de mudança passou</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>Em</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Começar</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspenso</value>
+  </data>
+  <data name="Terminate" xml:space="preserve">
+    <value>Terminar</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Hora</value>
   </data>
 </root>

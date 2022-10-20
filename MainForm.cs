@@ -6,6 +6,9 @@ using System.IO;
 using System.Media;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Globalization;
+using System.Resources;
+using System.Threading;
 
 namespace Wellbeing
 {
@@ -39,6 +42,11 @@ namespace Wellbeing
         
         public MainForm()
         {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-PT");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            resources.ApplyResources(this, "$this");
+
             InitializeComponent();
             SetButtonListeners();
             versionLbl.Text = Program.Version;
@@ -58,7 +66,7 @@ namespace Wellbeing
             };
             
             PassedTimeWatcher.OnRunningChanged += (_, running) =>
-                Invoke(new EventHandler((_, _) => StatusLbl.Text = running ? "Zapnuto" : "Pozastaveno"));
+                Invoke(new EventHandler((_, _) => StatusLbl.Text = running ? Properties.Resources.On : Properties.Resources.Suspended));
             PassedTimeWatcher.OnUpdate += (_, time) =>
                 Invoke(new EventHandler((_, _) => HandleTick(time.passedMillis, time.remainingMillis)));
             PassedTimeWatcher.OnMaxTimeReached += (_, _) =>
@@ -134,7 +142,7 @@ namespace Wellbeing
                 IdleLbl.Text = Utils.FormatTime(IdleTimeWatcher.IdleTimeMillis);
             TimeSpan passedTime = TimeSpan.FromMilliseconds(passedMillis);
             TimeSpan remainingTime = TimeSpan.FromMilliseconds(remainingMillis);
-            string formatted = "Čas: " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
+            string formatted = Properties.Resources.Time+": " + Format(passedTime) + " / " + Format(PassedTimeWatcher.MaxTime);
             TimeLbl.Text = formatted;
 
             int remainingTimeMins = (int)remainingTime.TotalMinutes;
@@ -236,7 +244,7 @@ namespace Wellbeing
 
             ChangePasswordButt.Click += (_, _) =>
             {
-                string? newPassword = ObtainTextOrNull("Nové heslo", true);
+                string? newPassword = ObtainTextOrNull(Properties.Resources.NewPassword, true);
                 
                 if (newPassword is null || !RequestPassword())
                     return;
@@ -282,7 +290,7 @@ namespace Wellbeing
             };
         }
 
-        private bool RequestPassword() => ObtainTextOrNull("Heslo", true) == Password;
+        private bool RequestPassword() => ObtainTextOrNull(Properties.Resources.Password, true) == Password;
         private static string? ObtainTextOrNull(string title, bool password)
         {
             var dialog = new TextDialog();
