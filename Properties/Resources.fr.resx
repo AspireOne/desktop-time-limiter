@@ -117,26 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppTitle" xml:space="preserve">
-    <value>Digital well-being</value>
-  </data>
   <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Change idle time needed to reset</value>
+    <value>Modifier le temps d’inactivité nécessaire à la réinitialisation</value>
   </data>
   <data name="ChangeMaxButt" xml:space="preserve">
-    <value>Change Max allowed time</value>
+    <value>Modifier l’heure maximale autorisée</value>
   </data>
   <data name="ChangePass" xml:space="preserve">
-    <value>Change Password</value>
+    <value>Modifier le mot de passe</value>
   </data>
   <data name="ChangePassedButt" xml:space="preserve">
-    <value>Change elapsed time</value>
+    <value>Modifier le temps écoulé</value>
   </data>
   <data name="ChangeResetHour" xml:space="preserve">
-    <value>Change time of day to reset</value>
+    <value>Modifier l’heure de la journée pour réinitialiser</value>
   </data>
   <data name="ChangeTimePassed" xml:space="preserve">
-    <value>Change time passed</value>
+    <value>Temps de modification passé</value>
   </data>
   <data name="generic_notification" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -4862,14 +4859,8 @@
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
   </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New Password</value>
-  </data>
   <data name="On" xml:space="preserve">
-    <value>On</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Sur</value>
   </data>
   <data name="Pause" xml:space="preserve">
     <value>Pause</value>
@@ -7776,22 +7767,22 @@
 </value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>Restart</value>
+    <value>Redémarrer</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start</value>
+    <value>Commencer</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Statut</value>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspended</value>
+    <value>Suspendu</value>
   </data>
   <data name="Terminate" xml:space="preserve">
-    <value>Terminate</value>
+    <value>Terminer</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Time</value>
+    <value>Heure</value>
   </data>
   <data name="time_reached" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -34514,5 +34505,14 @@
         f39+gH6Af4B/f39/f39/f39/gH6AfoB+gH+AgH6Af4B+gH+AgH6Af4B/gICAfwBpZDMgHgAAAElEMwMA
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Bien-être numérique</value>
   </data>
 </root>

@@ -116,7 +116,7 @@ namespace Wellbeing
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Čas";
+            this.Text = Properties.Resources.Time;
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.HoursBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinutesBox)).EndInit();

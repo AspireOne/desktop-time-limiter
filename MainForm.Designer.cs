@@ -54,7 +54,7 @@
             this.TimeLbl.Name = "TimeLbl";
             this.TimeLbl.Size = new System.Drawing.Size(415, 81);
             this.TimeLbl.TabIndex = 0;
-            this.TimeLbl.Text = "Čas:";
+            this.TimeLbl.Text = Properties.Resources.Time + ":";
             this.TimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CloseButt
@@ -64,7 +64,7 @@
             this.CloseButt.Name = "CloseButt";
             this.CloseButt.Size = new System.Drawing.Size(171, 58);
             this.CloseButt.TabIndex = 6;
-            this.CloseButt.Text = "Ukončit";
+            this.CloseButt.Text = Properties.Resources.Terminate;
             this.CloseButt.UseVisualStyleBackColor = true;
             // 
             // ChangeMaxButt
@@ -74,7 +74,7 @@
             this.ChangeMaxButt.Name = "ChangeMaxButt";
             this.ChangeMaxButt.Size = new System.Drawing.Size(171, 58);
             this.ChangeMaxButt.TabIndex = 2;
-            this.ChangeMaxButt.Text = "Změnit max. čas";
+            this.ChangeMaxButt.Text = Properties.Resources.ChangeMaxButt;
             this.ChangeMaxButt.UseVisualStyleBackColor = true;
             // 
             // ChangePassedButt
@@ -84,7 +84,7 @@
             this.ChangePassedButt.Name = "ChangePassedButt";
             this.ChangePassedButt.Size = new System.Drawing.Size(171, 58);
             this.ChangePassedButt.TabIndex = 1;
-            this.ChangePassedButt.Text = "Změnit strávený čas";
+            this.ChangePassedButt.Text = Properties.Resources.ChangePassedButt;
             this.ChangePassedButt.UseVisualStyleBackColor = true;
             // 
             // ToggleButt
@@ -94,7 +94,7 @@
             this.ToggleButt.Name = "ToggleButt";
             this.ToggleButt.Size = new System.Drawing.Size(171, 58);
             this.ToggleButt.TabIndex = 5;
-            this.ToggleButt.Text = "Pauznout/spustit";
+            this.ToggleButt.Text = Properties.Resources.Pause + "/" + Properties.Resources.Start;
             this.ToggleButt.UseVisualStyleBackColor = true;
             // 
             // StatusLbl
@@ -104,7 +104,7 @@
             this.StatusLbl.Name = "StatusLbl";
             this.StatusLbl.Size = new System.Drawing.Size(144, 23);
             this.StatusLbl.TabIndex = 0;
-            this.StatusLbl.Text = "Zapnuto";
+            this.StatusLbl.Text = Properties.Resources.Status;
             this.StatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ChangePasswordButt
@@ -114,7 +114,7 @@
             this.ChangePasswordButt.Name = "ChangePasswordButt";
             this.ChangePasswordButt.Size = new System.Drawing.Size(171, 58);
             this.ChangePasswordButt.TabIndex = 4;
-            this.ChangePasswordButt.Text = "Změnit heslo";
+            this.ChangePasswordButt.Text = Properties.Resources.ChangePass;
             this.ChangePasswordButt.UseVisualStyleBackColor = true;
             // 
             // ChangeResetHourButt
@@ -124,7 +124,7 @@
             this.ChangeResetHourButt.Name = "ChangeResetHourButt";
             this.ChangeResetHourButt.Size = new System.Drawing.Size(171, 58);
             this.ChangeResetHourButt.TabIndex = 3;
-            this.ChangeResetHourButt.Text = "Změnit čas resetu";
+            this.ChangeResetHourButt.Text = Properties.Resources.ChangeResetHour;
             this.ChangeResetHourButt.UseVisualStyleBackColor = true;
             // 
             // ChangeIdleTimeButt
@@ -134,7 +134,7 @@
             this.ChangeIdleTimeButt.Name = "ChangeIdleTimeButt";
             this.ChangeIdleTimeButt.Size = new System.Drawing.Size(171, 58);
             this.ChangeIdleTimeButt.TabIndex = 7;
-            this.ChangeIdleTimeButt.Text = "Změnit práh nečinnosti";
+            this.ChangeIdleTimeButt.Text = Properties.Resources.ChangeIdleTime;
             this.ChangeIdleTimeButt.UseVisualStyleBackColor = true;
             // 
             // versionLbl
@@ -184,7 +184,7 @@
             this.RestartButt.Name = "RestartButt";
             this.RestartButt.Size = new System.Drawing.Size(171, 58);
             this.RestartButt.TabIndex = 12;
-            this.RestartButt.Text = "Restartovat";
+            this.RestartButt.Text = Properties.Resources.Restart;
             this.RestartButt.UseVisualStyleBackColor = true;
             // 
             // IdleLbl
@@ -223,7 +223,7 @@
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Digitální blahobyt";
+            this.Text = Properties.Resources.AppTitle;
             this.TopMost = true;
             this.ResumeLayout(false);
         }
