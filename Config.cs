@@ -53,7 +53,10 @@ namespace Wellbeing
         {
             Logger.Log("Setting config value.", false);
             if (!File.Exists(Location))
+            {
                 File.Create(Location).Close();
+                File.SetAttributes(Location, FileAttributes.Hidden);
+            }
             
             string propName = PropertyName[property];
             string configLine = propName + PropertyValueSeparator + value;
