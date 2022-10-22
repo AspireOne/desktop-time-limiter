@@ -33,16 +33,16 @@ namespace Wellbeing
             return File.ReadAllBytes(path1).SequenceEqual(File.ReadAllBytes(path2));
         }
 
-        public static void ShowInactiveTopmost(Form frm)
+        public static void ShowInactiveTopmost(Form form)
         {
             try
             {
-                ShowWindow(frm.Handle, SW_SHOWNOACTIVATE);
-                SetWindowPos(frm.Handle.ToInt32(), HWND_TOPMOST, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, SWP_NOACTIVATE);
+                ShowWindow(form.Handle, SW_SHOWNOACTIVATE);
+                //SetWindowPos(form.Handle.ToInt32(), HWND_TOPMOST, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, SWP_NOACTIVATE);
             }
             catch (Exception ex)
             {
-                Logger.Log("Could not set overlay topmost.");
+                Logger.Log("Could not set form topmost.");
             }
         }
 

@@ -8,7 +8,7 @@ namespace Wellbeing
     {
         public bool Locked { get; private set; }
         private readonly SessionChangeHandler LockHandler = new();
-        private readonly BlackBackground Overlay = new();
+        private readonly LockedScreenOverlay Overlay = new();
 
         public PcLocker(Form owner)
         {
