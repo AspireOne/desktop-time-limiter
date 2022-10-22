@@ -80,7 +80,6 @@ namespace Wellbeing
                 return;
             
             File.Create(Location).Close();
-            File.SetAttributes(Location, File.GetAttributes(Location) | FileAttributes.Hidden);
         }
     }
 }
