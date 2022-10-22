@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Cambiar el tiempo de inactividad necesario para restablecer</value>
+    <value>Cambiar el umbral de inactividad</value>
   </data>
   <data name="ChangeMaxButt" xml:space="preserve">
     <value>Cambiar el tiempo máximo permitido</value>
@@ -130,10 +130,7 @@
     <value>Cambiar el tiempo transcurrido</value>
   </data>
   <data name="ChangeResetHour" xml:space="preserve">
-    <value>Cambiar la hora del día para restablecer</value>
-  </data>
-  <data name="ChangeTimePassed" xml:space="preserve">
-    <value>Tiempo de cambio pasado</value>
+    <value>Cambiar la hora a la que se reinicia la hora</value>
   </data>
   <data name="generic_notification" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -7767,7 +7764,7 @@
 </value>
   </data>
   <data name="Restart" xml:space="preserve">
-    <value>Reanudar</value>
+    <value>Reiniciar</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Empezar</value>
@@ -7776,7 +7773,7 @@
     <value>Estado</value>
   </data>
   <data name="Suspended" xml:space="preserve">
-    <value>Suspendido</value>
+    <value>Suspendildo</value>
   </data>
   <data name="Terminate" xml:space="preserve">
     <value>Terminar</value>

@@ -34465,7 +34465,7 @@
 </value>
   </data>
   <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Alterar o tempo ocioso necessário para redefinir</value>
+    <value>Alterar limite de inatividade</value>
   </data>
   <data name="ChangeMaxButt" xml:space="preserve">
     <value>Mudança Max tempo permitido</value>
@@ -34478,9 +34478,6 @@
   </data>
   <data name="ChangeResetHour" xml:space="preserve">
     <value>Mudar a hora do dia para redefinir</value>
-  </data>
-  <data name="ChangeTimePassed" xml:space="preserve">
-    <value>O tempo de mudança passou</value>
   </data>
   <data name="On" xml:space="preserve">
     <value>Em</value>

@@ -88,7 +88,7 @@ namespace Wellbeing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change idle time needed to reset.
+        ///   Looks up a localized string similar to Change idle threshold.
         /// </summary>
         internal static string ChangeIdleTime {
             get {
@@ -97,7 +97,7 @@ namespace Wellbeing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change Max allowed time.
+        ///   Looks up a localized string similar to Change max allowed time.
         /// </summary>
         internal static string ChangeMaxButt {
             get {
@@ -124,20 +124,11 @@ namespace Wellbeing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change time of day to reset.
+        ///   Looks up a localized string similar to Change the hour at which time resets.
         /// </summary>
         internal static string ChangeResetHour {
             get {
                 return ResourceManager.GetString("ChangeResetHour", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change time passed.
-        /// </summary>
-        internal static string ChangeTimePassed {
-            get {
-                return ResourceManager.GetString("ChangeTimePassed", resourceCulture);
             }
         }
         

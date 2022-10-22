@@ -121,10 +121,10 @@
     <value>Digital well-being</value>
   </data>
   <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Change idle time needed to reset</value>
+    <value>Change idle threshold</value>
   </data>
   <data name="ChangeMaxButt" xml:space="preserve">
-    <value>Change Max allowed time</value>
+    <value>Change max allowed time</value>
   </data>
   <data name="ChangePass" xml:space="preserve">
     <value>Change Password</value>
@@ -133,10 +133,7 @@
     <value>Change elapsed time</value>
   </data>
   <data name="ChangeResetHour" xml:space="preserve">
-    <value>Change time of day to reset</value>
-  </data>
-  <data name="ChangeTimePassed" xml:space="preserve">
-    <value>Change time passed</value>
+    <value>Change the hour at which time resets</value>
   </data>
   <data name="generic_notification" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

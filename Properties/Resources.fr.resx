@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChangeIdleTime" xml:space="preserve">
-    <value>Modifier le temps d’inactivité nécessaire à la réinitialisation</value>
+    <value>Modifier le seuil d'inactivité</value>
   </data>
   <data name="ChangeMaxButt" xml:space="preserve">
-    <value>Modifier l’heure maximale autorisée</value>
+    <value>Modifier le temps maximum autorisé</value>
   </data>
   <data name="ChangePass" xml:space="preserve">
     <value>Modifier le mot de passe</value>
@@ -130,10 +130,7 @@
     <value>Modifier le temps écoulé</value>
   </data>
   <data name="ChangeResetHour" xml:space="preserve">
-    <value>Modifier l’heure de la journée pour réinitialiser</value>
-  </data>
-  <data name="ChangeTimePassed" xml:space="preserve">
-    <value>Temps de modification passé</value>
+    <value>Modifier l'heure à laquelle l'heure se réinitialise</value>
   </data>
   <data name="generic_notification" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -4863,7 +4860,7 @@
     <value>Sur</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
+    <value>Suspendre</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="program_icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
