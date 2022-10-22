@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Wellbeing
 {
-    partial class BlackBackground
+    partial class LockedScreenOverlay
     {
         /// <summary>
         /// Required designer variable.
@@ -38,21 +38,15 @@ namespace Wellbeing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 961);
-            this.ControlBox = false;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "BlackBackground";
-            this.ShowIcon = false;
+            
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Location = new Point(0, 0);
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "LockedScreenOverlay";
             this.TopMost = true;
             this.BackColor = Color.DarkBlue;
             this.TransparencyKey = Color.DarkBlue;
-            /*this.BackColor = System.Drawing.Color.Black;
-            this.TransparencyKey = System.Drawing.Color.Transparent;*/
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
         }
 

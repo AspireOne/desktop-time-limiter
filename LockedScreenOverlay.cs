@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Wellbeing
 {
-    public partial class BlackBackground : Form
+    public partial class LockedScreenOverlay : Form
     {
         private readonly Timer TopmostUpdateTimer = new()
         {
@@ -12,16 +12,20 @@ namespace Wellbeing
             Enabled = false
         };
         
-        public BlackBackground()
+        public LockedScreenOverlay()
         {
             InitializeComponent();
             TopmostUpdateTimer.Tick += OnTimerTick;
             ActiveControl = null;
             Opacity = 0.8;
+            int a = Screen.PrimaryScreen.Bounds.Width;
+            int b = Screen.PrimaryScreen.Bounds.Height;
+            Size = new Size(a, b);
+            ClientSize = new Size(a, b);
+
             PictureBox pb = new PictureBox();
-            pb.Image = Image.FromFile("C:\\Users\\matej\\Desktop\\t.png");
+            pb.Image = Image.FromHbitmap(new Bitmap(Resource1.overlay).GetHbitmap());
             pb.SizeMode = PictureBoxSizeMode.AutoSize;
-            pb.Location = new Point(0, 0);
             Controls.Add(pb);
         }
 
