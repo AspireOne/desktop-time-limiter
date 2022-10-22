@@ -10,9 +10,7 @@ namespace Wellbeing
     {
         public enum Property { MaxTimeMins, IdleThresholdMins, ResetHour, Password, LastOpenOrResetDateTime, PassedTodaySecs }
         private const string PropertyValueSeparator = ": ";
-
-        private static readonly string Location =
-            Path.Combine(Program.RootDirectory, "wellbeing-config.txt");
+        private static readonly string Location = Path.Combine(Program.RootDirectory, "wellbeing-config.txt");
         private static readonly Dictionary<Property, string> PropertyName = new()
         {
             { Property.LastOpenOrResetDateTime, "last open or reset (datetime)" },

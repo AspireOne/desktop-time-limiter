@@ -42,7 +42,6 @@
             this.versionLbl = new System.Windows.Forms.Label();
             this.LogButt = new System.Windows.Forms.Button();
             this.AppButt = new System.Windows.Forms.Button();
-            this.DumpButt = new System.Windows.Forms.Button();
             this.RestartButt = new System.Windows.Forms.Button();
             this.IdleLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -167,16 +166,6 @@
             this.AppButt.Text = "App";
             this.AppButt.UseVisualStyleBackColor = true;
             // 
-            // DumpButt
-            // 
-            this.DumpButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.DumpButt.Location = new System.Drawing.Point(3, 523);
-            this.DumpButt.Name = "DumpButt";
-            this.DumpButt.Size = new System.Drawing.Size(10, 12);
-            this.DumpButt.TabIndex = 11;
-            this.DumpButt.Text = "Dump";
-            this.DumpButt.UseVisualStyleBackColor = true;
-            // 
             // RestartButt
             // 
             this.RestartButt.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -203,7 +192,6 @@
             this.ClientSize = new System.Drawing.Size(439, 537);
             this.Controls.Add(this.IdleLbl);
             this.Controls.Add(this.RestartButt);
-            this.Controls.Add(this.DumpButt);
             this.Controls.Add(this.AppButt);
             this.Controls.Add(this.LogButt);
             this.Controls.Add(this.versionLbl);
@@ -231,8 +219,6 @@
         private System.Windows.Forms.Label IdleLbl;
 
         private System.Windows.Forms.Button RestartButt;
-
-        private System.Windows.Forms.Button DumpButt;
 
         private System.Windows.Forms.Button AppButt;
 

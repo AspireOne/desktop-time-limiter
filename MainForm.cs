@@ -44,12 +44,17 @@ namespace Wellbeing
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-PT");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             resources.ApplyResources(this, "$this");
 
             InitializeComponent();
             SetButtonListeners();
             versionLbl.Text = Program.Version;
+            
+#if !DEBUG
+            AppButt.Visible = false;
+            IdleLbl.Visible = false;
+#endif
 
             DateTime lastOpen = Config.GetDateTime(Config.Property.LastOpenOrResetDateTime, DateTimeFormatter) ?? DateTime.MinValue;
             int resetHour = Config.GetIntOrNull(Config.Property.ResetHour) ?? DefaultResetHour;
@@ -66,11 +71,20 @@ namespace Wellbeing
             };
             
             PassedTimeWatcher.OnRunningChanged += (_, running) =>
-                Invoke(new EventHandler((_, _) => StatusLbl.Text = running ? Properties.Resources.On : Properties.Resources.Suspended));
+            {
+                Invoke(new EventHandler((_, _) =>
+                {
+                    StatusLbl.Text = running ? Properties.Resources.On : Properties.Resources.Suspended;
+                }));
+            };
             PassedTimeWatcher.OnUpdate += (_, time) =>
+            {
                 Invoke(new EventHandler((_, _) => HandleTick(time.passedMillis, time.remainingMillis)));
+            };
             PassedTimeWatcher.OnMaxTimeReached += (_, _) =>
+            {
                 Invoke(new EventHandler((_, _) => HandleMaxTimeReached()));
+            };
 
             int passedSecsToday = Config.GetIntOrNull(Config.Property.PassedTodaySecs) ?? 0;
             PassedTimeWatcher.PassedMillis = (int)TimeSpan.FromSeconds(passedSecsToday).TotalMilliseconds;
@@ -266,13 +280,6 @@ namespace Wellbeing
                     return;
 #endif
                 Process.Start(Program.RootDirectory);
-            };
-
-            DumpButt.Click += (_, _) =>
-            {
-                Logger.Log($"DUMP:\n" +
-                           $"  Idle time during sleep: {Utils.FormatTime(PassedTimeWatcher.IdleMillisDuringSleep)}\n" +
-                           $"  Last idle time: {Utils.FormatTime(PassedTimeWatcher.LastIdleTimeMillis)}\n");
             };
 
             RestartButt.Click += async (_, _) =>
