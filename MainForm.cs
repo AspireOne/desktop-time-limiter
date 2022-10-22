@@ -45,7 +45,6 @@ namespace Wellbeing
         public MainForm()
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InstalledUICulture;
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-PT");
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             resources.ApplyResources(this, "$this");
 
@@ -331,10 +330,10 @@ namespace Wellbeing
             using SoundPlayer audio = new();
             audio.Stream = remainingMins switch
             {
-                30 => Properties.Resources._30_minutes,
-                10 => Properties.Resources._10_minutes,
-                0 => Properties.Resources.time_reached,
-                _ => Properties.Resources.generic_notification
+                30 => Resources._30_minutes,
+                10 => Resources._10_minutes,
+                0 => Resources.time_reached,
+                _ => Resources.generic_notification
             };
             
             audio.Play();

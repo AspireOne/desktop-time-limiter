@@ -75,7 +75,7 @@ namespace Wellbeing
 
             if (replaced || ShouldOpenMainExe())
             {
-                Logger.Log("Starting new instance and closing this one.");
+                Logger.Log("Starting new instance and closing this one.", false);
                 Utils.StartWithParameters(
                     StartupLauncher.ExecutablePath,
                     $"{ConsoleActions[ConsoleAction.Delete]} \"{Application.ExecutablePath}\"");
