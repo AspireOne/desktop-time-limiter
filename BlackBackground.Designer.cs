@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
 
 namespace Wellbeing
 {
@@ -37,20 +38,20 @@ namespace Wellbeing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(984, 961);
             this.ControlBox = false;
-            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BlackBackground";
-            this.Opacity = 0.65;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.TopMost = true;
-            this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.BackColor = Color.DarkBlue;
+            this.TransparencyKey = Color.DarkBlue;
+            /*this.BackColor = System.Drawing.Color.Black;
+            this.TransparencyKey = System.Drawing.Color.Transparent;*/
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
         }

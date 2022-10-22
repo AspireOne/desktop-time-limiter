@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Wellbeing
@@ -17,6 +18,11 @@ namespace Wellbeing
             TopmostUpdateTimer.Tick += OnTimerTick;
             ActiveControl = null;
             Opacity = 0.8;
+            PictureBox pb = new PictureBox();
+            pb.Image = Image.FromFile("C:\\Users\\matej\\Desktop\\t.png");
+            pb.SizeMode = PictureBoxSizeMode.AutoSize;
+            pb.Location = new Point(0, 0);
+            Controls.Add(pb);
         }
 
         private void OnTimerTick(object sender, EventArgs e)
