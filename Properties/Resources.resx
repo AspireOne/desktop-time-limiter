@@ -34512,4 +34512,7 @@
         AAAAABRUWFhYAAAACgAAAFNvZnR3YXJlAAs=
 </value>
   </data>
+  <data name="RemainingMinutes" xml:space="preserve">
+    <value>Remaining minutes</value>
+  </data>
 </root>

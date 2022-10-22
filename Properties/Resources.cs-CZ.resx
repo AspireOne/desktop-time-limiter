@@ -34512,4 +34512,7 @@
   <data name="Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
+  <data name="RemainingMinutes" xml:space="preserve">
+    <value>Zbývající minuty</value>
+  </data>
 </root>

@@ -34512,4 +34512,7 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Bem-estar digital</value>
   </data>
+  <data name="RemainingMinutes" xml:space="preserve">
+    <value>Minutos restantes</value>
+  </data>
 </root>

@@ -188,6 +188,15 @@ namespace Wellbeing.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minutos restantes.
+        /// </summary>
+        internal static string RemainingMinutes {
+            get {
+                return ResourceManager.GetString("RemainingMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reiniciar.
         /// </summary>
         internal static string Restart {

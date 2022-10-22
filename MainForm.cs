@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
+using Wellbeing.Properties;
 
 namespace Wellbeing
 {
@@ -19,7 +20,8 @@ namespace Wellbeing
         private const byte DefaultIdleThresholdMins = 6;
         private const string DateTimeFormatter = "G";
         private const string DefaultPassword = "123";
-        
+
+        private static readonly VisualNotification VisualNotification = new();
         private readonly ResetChecker ResetChecker;
         private readonly UpdateChecker UpdateChecker;
         private readonly PcLocker PcLocker;
@@ -30,12 +32,12 @@ namespace Wellbeing
         {
             (30, () =>
             {
-                PlayNotification(30);
+                ShowNotificationRemainingTime(30);
                 //MessageBox.Show("Zbývá 30 minut", "Oznámení o zbývajícím čase", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }),
             (10, () =>
             {
-                PlayNotification(10);
+                ShowNotificationRemainingTime(10);
                 //MessageBox.Show("Zbývá 10 minut", "Oznámení o zbývajícím čase", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             })
         };
@@ -145,7 +147,7 @@ namespace Wellbeing
 
         private void HandleMaxTimeReached()
         {
-            PlayNotification(0);
+            ShowNotificationRemainingTime(0);
             Opacity = 1;
             PcLocker.Lock();
         }
@@ -324,10 +326,10 @@ namespace Wellbeing
             return null;
         }
 
-        private static void PlayNotification(int remaining = -1)
+        private static void ShowNotificationRemainingTime(int? remainingMins)
         {
             using SoundPlayer audio = new();
-            audio.Stream = remaining switch
+            audio.Stream = remainingMins switch
             {
                 30 => Properties.Resources._30_minutes,
                 10 => Properties.Resources._10_minutes,
@@ -336,6 +338,7 @@ namespace Wellbeing
             };
             
             audio.Play();
+            VisualNotification.ShowNotification(Resources.RemainingMinutes + ": " + remainingMins);
         }
 
         private static string Format(TimeSpan time)
