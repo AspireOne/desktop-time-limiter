@@ -48,7 +48,7 @@ namespace Wellbeing
             // 
             this.TextBox.Location = new System.Drawing.Point(44, 69);
             this.TextBox.Name = "TextBox";
-            this.TextBox.PasswordChar = '卐';
+            this.TextBox.PasswordChar = '*';
             this.TextBox.Size = new System.Drawing.Size(190, 20);
             this.TextBox.TabIndex = 1;
             // 

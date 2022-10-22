@@ -26,8 +26,7 @@ namespace Wellbeing
         public static string? GetValueOrNull(Property property)
         {
             Logger.Log("Getting config value.", false);
-            if (!File.Exists(Location))
-                File.Create(Location).Close();
+            AssureConfigIsCreated();
             
             string propName = PropertyName[property];
             
@@ -52,31 +51,36 @@ namespace Wellbeing
         public static void SetValue(Property property, object value)
         {
             Logger.Log("Setting config value.", false);
-            if (!File.Exists(Location))
-            {
-                File.Create(Location).Close();
-                File.SetAttributes(Location, FileAttributes.Hidden);
-            }
-            
             string propName = PropertyName[property];
             string configLine = propName + PropertyValueSeparator + value;
+
+            AssureConfigIsCreated();
             string[] lines = File.ReadAllLines(Location);
             
-            bool set = false;
+            bool hasBeenSet = false;
             for (int i = 0; i < lines.Length; ++i)
             {
                 if (!lines[i].Contains(propName))
                     continue;
                 
                 lines[i] = configLine;
-                set = true;
+                hasBeenSet = true;
                 break;
             }
             
-            if (set)
+            if (hasBeenSet)
                 File.WriteAllLines(Location, lines);
             else
                 File.AppendAllText(Location, configLine + "\n");
+        }
+
+        private static void AssureConfigIsCreated()
+        {
+            if (File.Exists(Location))
+                return;
+            
+            File.Create(Location).Close();
+            File.SetAttributes(Location, File.GetAttributes(Location) | FileAttributes.Hidden);
         }
     }
 }
