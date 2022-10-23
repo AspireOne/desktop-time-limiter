@@ -136,19 +136,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FadeAnimation.cs" />
-    <Compile Include="IsExternalInit.cs" />
-    <Compile Include="LockedScreenOverlay.cs">
+    <Compile Include="Forms\LockedScreenOverlay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LockedScreenOverlay.Designer.cs" />
+    <Compile Include="Forms\LockedScreenOverlay.Designer.cs" />
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs" />
+    <Compile Include="Forms\TextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TextDialog.Designer.cs" />
+    <Compile Include="Forms\TimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TimeDialog.Designer.cs" />
+    <Compile Include="Forms\VisualNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VisualNotification.Designer.cs">
+      <DependentUpon>VisualNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IsExternalInit.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Hooks\KeyboardHook.cs" />
     <Compile Include="Hooks\MouseHook.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs" />
     <Compile Include="PcLocker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,30 +195,23 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="StartupLauncher.cs" />
-    <Compile Include="TextDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TextDialog.Designer.cs" />
-    <Compile Include="TimeDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimeDialog.Designer.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="VisualNotification.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VisualNotification.Designer.cs">
-      <DependentUpon>VisualNotification.cs</DependentUpon>
-    </Compile>
     <Compile Include="Watchers\IdleTimeWatcher.cs" />
     <Compile Include="Watchers\PassedTimeWatcher.cs" />
     <Compile Include="Watchers\ResetWatcher.cs" />
     <Compile Include="Watchers\UpdateWatcher.cs" />
-    <EmbeddedResource Include="LockedScreenOverlay.resx">
+    <EmbeddedResource Include="Forms\LockedScreenOverlay.resx">
       <DependentUpon>LockedScreenOverlay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx" />
+    <EmbeddedResource Include="Forms\MainForm.resx" />
+    <EmbeddedResource Include="Forms\TextDialog.resx">
+      <DependentUpon>TextDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TimeDialog.resx" />
+    <EmbeddedResource Include="Forms\VisualNotification.resx">
+      <DependentUpon>VisualNotification.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.fr.Designer.cs</LastGenOutput>
@@ -238,13 +245,6 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TextDialog.resx">
-      <DependentUpon>TextDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimeDialog.resx" />
-    <EmbeddedResource Include="VisualNotification.resx">
-      <DependentUpon>VisualNotification.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="program_icon.ico" />
