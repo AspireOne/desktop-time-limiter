@@ -177,11 +177,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resource2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource2.resx</DependentUpon>
-    </Compile>
     <Compile Include="SessionChangeHandler.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -243,10 +238,6 @@
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource2.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource2.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TextDialog.resx">
       <DependentUpon>TextDialog.cs</DependentUpon>
